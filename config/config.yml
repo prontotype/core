@@ -1,0 +1,14 @@
+debug: false
+
+public:
+   directory: 'public'
+
+templates:
+   directory: 'templates'
+   extension: 'html'
+
+data:
+   directory: 'data'
+   
+prontotype:
+   server: 'server.php'

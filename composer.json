@@ -1,0 +1,27 @@
+{
+    "name": "clearleft/prontotype-core",
+    "authors": [
+        {
+            "name": "Mark Perkins",
+            "email": "mark@clearleft.com"
+        }
+    ],
+    "require": {
+        "twig/twig": "~1.16",
+        "symfony/console": "2.4.*",
+        "allmarkedup/twig-extensions": "~0.2",
+        "dflydev/apache-mime-types": "~1.0",
+        "allmarkedup/super-sharp-router": "~0.2",
+        "allmarkedup/dayglo": "~0.1",
+        "allmarkedup/conph": "dev-master",
+        "rdlowrey/auryn": "~0.14"
+    },
+    "autoload": {
+        "psr-4": {
+            "Prontotype\\": "app/"
+        },
+        "files": [
+            "helpers.php"
+        ]
+    }
+}
