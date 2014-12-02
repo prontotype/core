@@ -11,9 +11,9 @@ class HttpProvider implements ProviderInterface
         $container->define('Prontotype\Http\ControllerHandler', [':container' => $container]);
         $container->define('Amu\SuperSharp\Router', ['handler' => 'Prontotype\Http\ControllerHandler']);
         $container->alias('prontotype.http', 'Prontotype\Http\Application')->share('prontotype.http');
-
+        
         $handler = $container->make('prontotype.http');
-
+        
         $handler->get('/{urlPath}', 'Prontotype\Http\Controllers\DefaultController:catchall')
             ->value('urlPath', '/')
             ->assert('urlPath', '.+');
@@ -21,7 +21,7 @@ class HttpProvider implements ProviderInterface
         $handler->notFound(function(){
             return new Response('Page not found', 404);
         });
-
+        
         $handler->error(function($e){
             return new Response('A server error occurred (' . $e->getMessage() . ')', 500);
         });

@@ -3,6 +3,7 @@
 use Amu\SuperSharp\Http\Request;
 use Amu\SuperSharp\Handler\HandlerInterface;
 use Symfony\Component\HttpKernel\Controller\ControllerResolver;
+use Prontotype\Http\ControllerMapper;
 
 class ControllerHandler implements HandlerInterface
 {
@@ -23,9 +24,11 @@ class ControllerHandler implements HandlerInterface
         return call_user_func_array($controller, $arguments);
     }
 
-    protected function convertCallback($name)
+    protected function convertCallback($routeString)
     {
-        list($service, $method) = explode(':', $name, 2);
-        return array($this->container->make($service), $method);
+        $mapper = new ControllerMapper();
+        $callable = $mapper->getCallback($routeString);
+        $callable[0] = $this->container->make($callable[0]);
+        return $callable;
     }
 }
