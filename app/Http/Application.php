@@ -32,7 +32,7 @@ class Application
     public function run()
     {
         try {
-            $response = $this->router->match(Request::createFromGlobals());
+            $response = $this->router->match(ProntotypeRequest::createFromGlobals());
         } catch (NotFoundException $e) {
             $response = $this->runError('onNotFound', $e);
         } catch (\Exception $e) {

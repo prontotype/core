@@ -1,14 +1,19 @@
 debug: false
 
 public:
-   directory: 'public'
+  directory: public
 
 templates:
-   directory: 'templates'
-   extension: 'html'
+  directory: templates
+  extension: html
+
+routes:
+  example:
+    match: '/{category}'
+    template: 'about'
 
 data:
-   directory: 'data'
+  directory: data
    
 prontotype:
-   server: 'server.php'
+  server: server.php

@@ -1,4 +1,4 @@
-<?php namespace Prontotype\Twig;
+<?php namespace Prontotype\View\Twig;
 
 class Loader extends \Twig_Loader_Filesystem
 {

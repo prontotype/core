@@ -1,4 +1,4 @@
-<?php namespace Prontotype\Twig\Prontotype;
+<?php namespace Prontotype\View\Twig\Prontotype;
 
 use Amu\Dayglo\Loader as DataLoader;
 

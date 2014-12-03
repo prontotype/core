@@ -1,15 +1,11 @@
 <?php namespace Prontotype\Http\Controllers;
 
-use Amu\SuperSharp\Http\Response;
-use Amu\SuperSharp\Http\Request;
+use Prontotype\Http\Request;
 
 class DefaultController extends BaseController
 {    
-    public function catchall($urlPath, Request $request)
+    public function catchall($templatePath, Request $request)
     {
-        $template = $this->findViewTemplateByUrl($urlPath);
-        return new Response($template->render(), 200, [
-            'Content-Type' => $request->getRequestMime()
-        ]);
+        return $this->render($templatePath, array(), $request);
     }
 }
