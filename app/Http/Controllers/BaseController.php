@@ -1,6 +1,6 @@
 <?php namespace Prontotype\Http\Controllers;
 
-use Twig_Error_Loader;
+use Twig_Environment;
 use Amu\SuperSharp\Http\Response;
 use Prontotype\Http\Request;
 use Prontotype\View\TemplateFinder;
@@ -8,21 +8,24 @@ use Prontotype\Exception\NotFoundException;
 
 abstract class BaseController {
 
-    public function __construct(TemplateFinder $templates)
+    public function __construct(TemplateFinder $templates, Twig_Environment $environment)
     {
         $this->templates = $templates;
+        $this->environment = $environment;
     }
 
-    public function render($templatePath, $params, Request $request)
+    public function before(Request $request)
     {
-        $template = $this->templates->findByPath($templatePath);
-        $environment = $template->getEnvironment();
-        $globals = $environment->getGlobals();
+        // add current request into global variables
+        $globals = $this->environment->getGlobals();
         $pt = $globals['pt'];
         $pt['request'] = $request;
-        $environment->addGlobal('pt', $pt);
-        return new Response($template->render($params), 200, [
-            'Content-Type' => $request->getRequestMime()
-        ]);
+        $this->environment->addGlobal('pt', $pt);
+    }
+
+    public function renderTemplate($templatePath, $params = array(), $attr = array())
+    {
+        $template = $this->templates->findByPath($templatePath);
+        return new Response($template->render($params), 200, $attr);
     }
 }

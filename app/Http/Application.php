@@ -38,6 +38,9 @@ class Application
         } catch (\Exception $e) {
             $response = $this->runError('onError', $e);
         }
+        if (is_string($response)) {
+            $response = new Response($response);
+        }
         $response->send();
     }
 

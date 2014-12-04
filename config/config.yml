@@ -6,10 +6,12 @@ public:
 templates:
   directory: templates
   extension: html
+  notfound: _errors/404
+  error: _errors/500
 
 routes:
   example:
-    match: '/{category}'
+    match: '/category/{category}'
     template: 'about'
 
 data:

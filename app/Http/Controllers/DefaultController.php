@@ -6,6 +6,8 @@ class DefaultController extends BaseController
 {    
     public function catchall($templatePath, Request $request)
     {
-        return $this->render($templatePath, array(), $request);
+        return $this->renderTemplate($templatePath, [], [
+            'Content-Type' => $request->getRequestMime()
+        ]);
     }
 }

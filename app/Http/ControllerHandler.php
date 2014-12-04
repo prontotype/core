@@ -39,6 +39,8 @@ class ControllerHandler implements HandlerInterface
 
         $controller = $this->convertCallback($params['_controller']);
         $arguments = $this->getArguments($request, $controller);
+        $beforeCallable = array($controller[0], 'before');
+        call_user_func_array($beforeCallable, [$request]);
         return call_user_func_array($controller, $arguments);
     }
 

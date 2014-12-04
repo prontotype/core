@@ -46,7 +46,7 @@ class Application {
         // run the appropriate handler
         try {
             $handler = $this->isRunningInConsole() ? $this->container->make('prontotype.console') : $this->container->make('prontotype.http');
-            return $handler->run();    
+            return $handler->run();
         } catch (\Exception $e) {
             echo 'An appilcation error has occured.';
         }

@@ -17,6 +17,8 @@ class HttpProvider implements ProviderInterface
         $container->alias('prontotype.http', 'Prontotype\Http\Application')->share('prontotype.http');
         
         $handler = $container->make('prontotype.http');
+
+        // bind routes --------
         
         $this->buildUserRoutes($handler, $conf->get('routes') ?: array());
 
@@ -25,12 +27,28 @@ class HttpProvider implements ProviderInterface
                 ->value('templatePath', '/')
                 ->assert('templatePath', '.+');
 
-        $handler->notFound(function(){
-            return new Response('Page not found', 404);
+        // handle errors --------
+        
+        $viewFinder = $container->make('prontotype.view.finder');
+
+        $handler->notFound(function() use ($viewFinder) {
+            try {
+                $template = $viewFinder->findNotFoundTemplate();
+                $response = $template->render();
+            } catch( \Exception $e ) {
+                $response = 'Page not found';
+            }
+            return new Response($response, 404);
         });
         
-        $handler->error(function($e){
-            return new Response('A server error occurred (' . $e->getMessage() . ')', 500);
+        $handler->error(function($e) use ($viewFinder) {
+            try {
+                $template = $viewFinder->findErrorTemplate();
+                $response = $template->render();
+            } catch( \Exception $e ) {
+                $response = 'A server error occurred (' . $e->getMessage() . ')';
+            }
+            return new Response($response, 500);
         });
     }
 
