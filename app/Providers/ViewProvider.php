@@ -24,7 +24,7 @@ class ViewProvider implements ProviderInterface
             'autoescape'        => false
         ));
         $twig->addExtension($container->make('Amu\Twig\TwigMarkdown\TwigMarkdownExtension'));
-        $twig->addExtension($container->make('Prontotype\View\Twig\Prontotype\ProntotypeExtension'));
+        $twig->addExtension($container->make('Prontotype\View\Twig\Extension\ProntotypeExtension'));
        
         $container->share($twig)->alias('prontotype.view.environment', 'Twig_Environment');
 
