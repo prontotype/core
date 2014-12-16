@@ -5,6 +5,16 @@ use Illuminate\Support\Collection;
 
 class Finder extends AmuFinder {
 
+    public function guess($pathname)
+    {
+        $idIdent = 'id:';
+        if ( strpos($pathname, $idIdent) === 0 ) {
+            $id = trim(str_replace($idIdent, '', $pathname));
+            return $this->id($id);
+        }
+        return $this->pathname($pathname);
+    }
+
     public function id($id)
     {
         return $this->idEquals($id);

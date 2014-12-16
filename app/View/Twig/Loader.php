@@ -16,30 +16,31 @@ class Loader extends \Twig_Loader_Filesystem
 
     public function findTemplate($name)
     {
-        $ext = pathinfo($name, PATHINFO_EXTENSION);
-        if ( ! isset($ext) || empty($ext) ) {
-            $name = $name . '.' . $this->defaultExt;
+        if ( strpos($name, ':') === false ) {
+            $ext = pathinfo($name, PATHINFO_EXTENSION);
+            if ( ! isset($ext) || empty($ext) ) {
+                $name = $name . '.' . $this->defaultExt;
+            }
+            $name = $this->normalizeName($name);
         }
-
-        $name = $this->normalizeName($name);
         
         if (isset($this->cache[$name])) {
             return $this->cache[$name];
         }
 
         $this->validateName($name);
-
+        
         list($namespace, $shortname) = $this->parseName($name);
 
         if (!isset($this->paths[$namespace])) {
             throw new \Twig_Error_Loader(sprintf('There are no registered paths for namespace "%s".', $namespace));
         }
 
-        foreach ($this->paths[$namespace] as $path) {   
+        foreach ($this->paths[$namespace] as $path) {
             $finder = new Finder($path);
-            $results = $finder->pathname($name);
+            $results = $finder->guess($name);
             if ($results->count()) {
-                return $this->cache[$name] = $path . '/' . $results->first()->getRelativePathname();
+                return $this->cache[$name] = $results->first();
             }
         }
 
@@ -48,7 +49,8 @@ class Loader extends \Twig_Loader_Filesystem
 
     public function getSource($name)
     {
-        return file_get_contents($this->findTemplate($name));
+        $template = $this->findTemplate($name);
+        return $template->getBody();
     }
 
 }
