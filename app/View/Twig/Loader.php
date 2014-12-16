@@ -22,10 +22,6 @@ class Loader extends \Twig_Loader_Filesystem
         }
 
         $name = $this->normalizeName($name);
-
-                echo '<pre>';
-                print_r($name);
-                echo '</pre>';
         
         if (isset($this->cache[$name])) {
             return $this->cache[$name];
@@ -39,10 +35,9 @@ class Loader extends \Twig_Loader_Filesystem
             throw new \Twig_Error_Loader(sprintf('There are no registered paths for namespace "%s".', $namespace));
         }
 
-        foreach ($this->paths[$namespace] as $path) {
-          
+        foreach ($this->paths[$namespace] as $path) {   
             $finder = new Finder($path);
-            $results = $finder->name(ltrim($name,'/'));
+            $results = $finder->pathname($name);
             if ($results->count()) {
                 return $this->cache[$name] = $path . '/' . $results->first()->getRelativePathname();
             }
