@@ -1,29 +1,25 @@
 <?php namespace Prontotype\View\Twig;
 
-use Prontotype\View\Finder;
+use Prontotype\Filesystem\Finder;
 
 class Loader extends \Twig_Loader_Filesystem
 {
-    public function __construct($paths = array())
-    {
-        parent::__construct($paths);
-    }
-
-    public function setDefaultExtension($defaultExt)
+    public function __construct($paths = array(), $defaultExt = 'twig')
     {
         $this->defaultExt = ltrim($defaultExt, '.');
+        parent::__construct($paths);
     }
 
     public function findTemplate($name)
     {
-        if ( strpos($name, ':') === false ) {
+         if ( strpos($name, ':') === false ) {
             $ext = pathinfo($name, PATHINFO_EXTENSION);
             if ( ! isset($ext) || empty($ext) ) {
                 $name = $name . '.' . $this->defaultExt;
             }
             $name = $this->normalizeName($name);
         }
-        
+
         if (isset($this->cache[$name])) {
             return $this->cache[$name];
         }
@@ -44,7 +40,7 @@ class Loader extends \Twig_Loader_Filesystem
             }
         }
 
-        throw new \Twig_Error_Loader(sprintf('Unable to find template "%s" (looked into: %s).', $name, implode(', ', $this->paths[$namespace])));
+        throw new \Twig_Error_Loader(sprintf('Unable to find template "%s".', $name));
     }
 
     public function getSource($name)

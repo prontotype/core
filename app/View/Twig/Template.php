@@ -5,12 +5,6 @@ use Dflydev\ApacheMimeTypes\PhpRepository as MimeRepo;
 
 abstract class Template extends Twig_Template
 {
-
-    public function display(array $context, array $blocks = array())
-    {
-        parent::display($context, $blocks);
-    }
-
     public function getMimeType()
     {
         $ext = strtolower(pathinfo($this->getTemplateName(), PATHINFO_EXTENSION));
@@ -21,6 +15,16 @@ abstract class Template extends Twig_Template
     public function render(array $context = array())
     {
         return parent::render($context);
+    }
+
+    public function isHidden()
+    {
+        
+    }
+
+    public function setFileObject(SplFileInfo $fileObj)
+    {
+        $this->file = $fileObj;
     }
 
 }

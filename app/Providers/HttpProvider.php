@@ -26,28 +26,30 @@ class HttpProvider implements ProviderInterface
                 ->name('default')
                 ->value('templatePath', '/')
                 ->assert('templatePath', '.+');
-
+ 
         // handle errors --------
         
-        $viewFinder = $container->make('prontotype.view.finder');
+        $viewLoader = $container->make('prontotype.view.loader');
 
-        $handler->notFound(function() use ($viewFinder) {
-            try {
-                $template = $viewFinder->findNotFoundTemplate();
-                $response = $template->render();
-            } catch( \Exception $e ) {
-                $response = 'Page not found';
-            }
+        $handler->notFound(function() use ($viewLoader) {
+            // try {
+            //     $template = $viewLoader->findNotFoundTemplate();
+            //     $response = $template->render();
+            // } catch( \Exception $e ) {
+            //     $response = 'Page not found';
+            // }
+            $response = 'Page not found';
             return new Response($response, 404);
         });
         
-        $handler->error(function($e) use ($viewFinder) {
-            try {
-                $template = $viewFinder->findErrorTemplate();
-                $response = $template->render();
-            } catch( \Exception $e ) {
-                $response = 'A server error occurred (' . $e->getMessage() . ')';
-            }
+        $handler->error(function($e) use ($viewLoader) {
+            // try { 
+            //     $template = $viewLoader->findErrorTemplate();
+            //     $response = $template->render();
+            // } catch( \Exception $e ) {
+            //     $response = 'A server error occurred (' . $e->getMessage() . ')';
+            // }
+            $response = 'A server error occurred (' . $e->getMessage() . ')';
             return new Response($response, 500);
         });
     }

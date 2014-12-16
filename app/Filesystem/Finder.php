@@ -1,4 +1,4 @@
-<?php namespace Prontotype\View;
+<?php namespace Prontotype\Filesystem;
 
 use Amu\Ffs\Finder as AmuFinder;
 use Illuminate\Support\Collection;
@@ -7,10 +7,10 @@ class Finder extends AmuFinder {
 
     public function guess($pathname)
     {
-        $idIdent = 'id:';
-        if ( strpos($pathname, $idIdent) === 0 ) {
-            $id = trim(str_replace($idIdent, '', $pathname));
-            return $this->id($id);
+        if ( strpos($pathname, ':') !== false ) {
+            list($key, $value) = explode(':', $pathname);
+            $method = $key . 'Equals';
+            return $this->$method($value);
         }
         return $this->pathname($pathname);
     }
