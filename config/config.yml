@@ -3,6 +3,10 @@ debug: false
 public:
   directory: public
 
+cache:
+  directory: cache
+  auto_reload: true
+
 templates:
   directory: templates
   extension: html

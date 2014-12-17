@@ -19,11 +19,14 @@ class ViewProvider implements ProviderInterface
         ]);
         $container->alias('prontotype.view.loader', 'Prontotype\View\Twig\Loader');
         
+        $cache = empty($conf->get('cache.directory')) ? false : $conf->get('cache.directory');
+        $cacheAutoReload = ($cache && $conf->get('cache.auto_reload'));
+        
         $twig = new Environment($container->make('prontotype.view.loader'), array(
             'strict_variables'  => false,
             'base_template_class' => 'Prontotype\View\Twig\Template',
-            'cache'             => false,
-            'auto_reload'       => true,
+            'cache'             => $cache,
+            'auto_reload'       => $cacheAutoReload,
             'debug'             => $conf->get('debug'),
             'autoescape'        => false
         ));

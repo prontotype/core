@@ -24,11 +24,18 @@ abstract class BaseController {
     }
 
     public function renderTemplate($templatePath, $params = array(), $attr = array())
-    {
-        $template = $this->twig->loadTemplate(array(
-            $templatePath,
-            rtrim($templatePath,'/') . '/index'
-        ));
-        return new Response($template->render($params), 200, $attr);
+    {   
+        try {
+            $template = $this->twig->loadTemplate(array(
+                $templatePath,
+                rtrim($templatePath,'/') . '/index'
+            ));
+            if ( $template->isHidden() ) {
+                throw new NotFoundException('Page not found');
+            }
+            return new Response($template->render($params), 200, $attr);
+        } catch (\Twig_Error_Loader $e) {
+            throw new NotFoundException('Page not found');
+        }
     }
 }

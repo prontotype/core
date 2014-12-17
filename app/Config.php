@@ -23,6 +23,11 @@ class Config extends Conph {
         return $this->getPathWithBase($value);
     }
 
+    public function convertCacheDirectory($value)
+    {
+        return $this->getPathWithBase($value);
+    }
+
     public function convertProntotypeServer($path)
     {
         return $this->getProntotypePath($path);

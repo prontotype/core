@@ -7,12 +7,12 @@ class Environment extends \Twig_Environment
         if (is_array($name) ) {
             foreach($name as $tpl) {
                 try {
-                    return $this->loadTemplate($tpl);
+                    return $this->doLoadTemplate($tpl);
                 } catch( \Twig_Error_Loader $e ) {}    
             }
-            throw new \Twig_Error_Loader('Unable to find template');
+            throw new \Twig_Error_Loader('Unable to find templates ' . implode(', ', $name));
         } else {
-            return $this->loadTemplate($name, $index);
+            return $this->doLoadTemplate($name, $index);
         }
     }
 
@@ -25,11 +25,14 @@ class Environment extends \Twig_Environment
         }
 
         if (!class_exists($cls, false)) {
+            
+            $tpl = $this->getLoader()->findTemplate($name);
+
             if (false === $cache = $this->getCacheFilename($name)) {
-                eval('?>'.$this->compileSource($this->getLoader()->getSource($name), $name));
+                eval('?>'.$this->compileSource($tpl->getBody(), $name));
             } else {
                 if (!is_file($cache) || ($this->isAutoReload() && !$this->isTemplateFresh($name, filemtime($cache)))) {
-                    $this->writeCacheFile($cache, $this->compileSource($this->getLoader()->getSource($name), $name));
+                    $this->writeCacheFile($cache, $this->compileSource($tpl->getBody(), $name));
                 }
 
                 require_once $cache;
@@ -40,7 +43,11 @@ class Environment extends \Twig_Environment
             $this->initRuntime();
         }
         
-        return $this->loadedTemplates[$cls] = new $cls($this);
+        $instance = new $cls($this);
+
+        $instance->setFileObject($tpl);
+
+        return $this->loadedTemplates[$cls] = $instance;
     }
 
 }
