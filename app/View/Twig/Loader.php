@@ -45,7 +45,7 @@ class Loader extends \Twig_Loader_Filesystem
 
     public function getSource($name)
     {
-        $template = $this->findTemplate($name);
+        $template = $this->findTemplate($name); 
         return $template->getBody();
     }
 

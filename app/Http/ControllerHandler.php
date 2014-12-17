@@ -19,7 +19,7 @@ class ControllerHandler implements HandlerInterface
         $params['_params'] = array();
 
         // populate template path param if undefined
-        if ($params['templatePath'] === null) {
+        if (! isset($params['templatePath']) || $params['templatePath'] === null) {
             $params['templatePath'] = $request->getRequestUri();
         }
 

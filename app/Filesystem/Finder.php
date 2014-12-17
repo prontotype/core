@@ -5,6 +5,8 @@ use Illuminate\Support\Collection;
 
 class Finder extends AmuFinder {
 
+    protected $iteratorClass = 'Prontotype\Filesystem\RecursiveDirectoryIterator';
+
     public function guess($pathname)
     {
         if ( strpos($pathname, ':') !== false ) {

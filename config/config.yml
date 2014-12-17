@@ -4,7 +4,7 @@ public:
   directory: public
 
 cache:
-  directory: cache
+  directory: _cache
   auto_reload: true
 
 templates:
@@ -20,6 +20,6 @@ routes:
 
 data:
   directory: data
-   
+  
 prontotype:
   server: server.php

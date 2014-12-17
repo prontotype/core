@@ -8,6 +8,8 @@ class HttpProvider implements ProviderInterface
 {
     protected $catchallController = 'Prontotype\Http\Controllers\DefaultController::catchall';
 
+    protected $idRedirectController = 'Prontotype\Http\Controllers\DefaultController::redirectById';
+
     public function register(Container $container)
     {
         $conf = $container->make('prontotype.config');
@@ -21,6 +23,9 @@ class HttpProvider implements ProviderInterface
         // bind routes --------
         
         $this->buildUserRoutes($handler, $conf->get('routes') ?: array());
+
+        $handler->get('/id:{templateId}', $this->idRedirectController)
+                ->name('redirect');
 
         $handler->get('/{templatePath}', $this->catchallController)
                 ->name('default')

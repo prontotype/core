@@ -39,4 +39,14 @@ abstract class Template extends Twig_Template
         $this->file = $fileObj;
     }
 
+    public function getRelativePathname()
+    {
+        return $this->file->getRelativePathname();
+    }
+
+    public function getMetadata()
+    {
+        return $this->file->getMetadata();
+    }
+
 }
