@@ -16,7 +16,9 @@
         "allmarkedup/conph": "dev-master",
         "allmarkedup/ffs": "dev-master",
         "rdlowrey/auryn": "~0.14",
-        "illuminate/support": "~4.2"
+        "illuminate/support": "~4.2",
+        "prontotype/composer-installer": "dev-master",
+        "prontotype/data-plugin": "dev-master"
     },
     "autoload": {
         "psr-4": {
@@ -25,5 +27,15 @@
         "files": [
             "helpers.php"
         ]
-    }
+    },
+    "repositories": [
+        {
+            "type":"vcs",
+            "url":"/Users/mark/Projects/clearleft/prontotype-plugins/data"
+        },
+        {
+            "type":"vcs",
+            "url":"/Users/mark/Projects/clearleft/prontotype-composer"
+        }
+    ]
 }

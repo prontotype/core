@@ -1,0 +1,13 @@
+plugins can
+
+- provide config
+- set up routes
+- provide controllers
+- add template methods/variables
+- define console tasks
+- 
+
+split out
+
+- data
+-  

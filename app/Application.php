@@ -8,7 +8,7 @@ use Prontotype\Providers\HttpProvider;
 use Prontotype\Providers\ViewProvider;
 use Prontotype\Providers\ConfigProvider;
 use Prontotype\Providers\ConsoleProvider;
-use Prontotype\Providers\DataProvider;
+use Prontotype\Providers\PluginProvider;
 
 class Application {
 
@@ -31,10 +31,10 @@ class Application {
     protected function registerServices()
     {
         $this->register(new ConfigProvider($this->basePath, $this->srcPath));
-        $this->register(new DataProvider());
         $this->register(new ViewProvider());
         $this->register(new HttpProvider());
         $this->register(new ConsoleProvider());
+        $this->register(new PluginProvider());
     }
 
     public function run()

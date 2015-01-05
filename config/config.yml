@@ -25,3 +25,5 @@ data:
   
 prontotype:
   server: server.php
+  templates: templates
+  plugins: vendor/prontotype/plugins
