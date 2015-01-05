@@ -10,6 +10,8 @@ class HttpProvider implements ProviderInterface
 
     protected $idRedirectController = 'Prontotype\Http\Controllers\DefaultController::redirectById';
 
+    protected $notFoundController = 'Prontotype\Http\Controllers\DefaultController::notFound';
+
     public function register(Container $container)
     {
         $conf = $container->make('prontotype.config');
@@ -24,16 +26,20 @@ class HttpProvider implements ProviderInterface
         
         $this->buildUserRoutes($handler, $conf->get('routes') ?: array());
 
+        if ($conf->get('short_urls')) {
+            $handler->get('/id:{templateId}', $this->idRedirectController)
+                ->name('redirect');
+        }
         
-        $handler->get('/id:{templateId}', $this->idRedirectController)
-            ->name('redirect');    
-        
+        $handler->get('/{templatePath}', $this->notFoundController)
+                ->name('notfound')
+                ->assert('templatePath', '[^:]+:.+');
 
         $handler->get('/{templatePath}', $this->catchallController)
                 ->name('default')
                 ->value('templatePath', '/')
                 ->assert('templatePath', '.+');
- 
+
         // handle errors --------
         
         $viewLoader = $container->make('prontotype.view.loader');

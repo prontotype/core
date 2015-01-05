@@ -37,11 +37,16 @@ abstract class BaseController {
                 rtrim($templatePath,'/') . '/index'
             ));
             if ( ! $allowHidden && $template->isHidden() ) {
-                throw new NotFoundException('Page not found');
+                $this->notFound();
             }
             return $template;
         } catch (\Twig_Error_Loader $e) {
-            throw new NotFoundException('Page not found');
+            $this->notFound();
         }
+    }
+
+    public function notFound()
+    {
+        throw new NotFoundException('Page not found');
     }
 }
