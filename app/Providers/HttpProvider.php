@@ -24,8 +24,10 @@ class HttpProvider implements ProviderInterface
         
         $this->buildUserRoutes($handler, $conf->get('routes') ?: array());
 
+        
         $handler->get('/id:{templateId}', $this->idRedirectController)
-                ->name('redirect');
+            ->name('redirect');    
+        
 
         $handler->get('/{templatePath}', $this->catchallController)
                 ->name('default')

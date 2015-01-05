@@ -1,6 +1,7 @@
 <?php namespace Prontotype\Http\Controllers;
 
 use Prontotype\Http\Request;
+use Prontotype\Exception\NotFoundException;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class DefaultController extends BaseController
@@ -14,8 +15,12 @@ class DefaultController extends BaseController
 
     public function redirectById($templateId, Request $request)
     {
-        $template = $this->fetchTemplate('id:' . $templateId, true);
-        $path = preg_replace('/' . '\.' . $this->config->get('templates.extension') . '$/', '', $template->getRelativePathname());
-        return new RedirectResponse($path, 301);
+        if ($this->config->get('short_urls')) {
+            $template = $this->fetchTemplate('id:' . $templateId, true);
+            $path = preg_replace('/' . '\.' . $this->config->get('templates.extension') . '$/', '', $template->getRelativePathname());
+            return new RedirectResponse($path, 301);
+        } else {
+            throw new NotFoundException('Page not found');
+        }
     }
 }
