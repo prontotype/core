@@ -10,8 +10,6 @@ cache:
 templates:
   directory: templates
   extension: html
-  notfound: _errors/404
-  error: _errors/500
   
 prontotype:
   server: server.php
