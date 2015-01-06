@@ -50,6 +50,6 @@ class Config extends Conph {
 
     protected function getPathWithBase($path)
     {
-        return realpath(make_path($this->get('prontotype.basepath'), $path));
+        return make_path($this->get('prontotype.basepath'), $path);
     }
 }

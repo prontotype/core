@@ -1,7 +1,7 @@
 <?php namespace Prontotype\Providers;
 
 use Twig_Environment;
-use Auryn\Provider as Container;
+use Prontotype\Container;
 use Prontotype\View\Twig\Environment;
 use Prontotype\View\Twig\Loader as TemplateLoader;
 use Prontotype\View\Twig\DataExtension;
@@ -18,6 +18,8 @@ class ViewProvider implements ProviderInterface
             ':defaultExt' => $conf->get('templates.extension')
         ]);
         $container->alias('prontotype.view.loader', 'Prontotype\View\Twig\Loader');
+
+        $container->share('Prontotype\View\Globals')->alias('prontotype.view.globals', 'Prontotype\View\Globals');
         
         $loader = $container->make('prontotype.view.loader');
         // $loader->addPath($conf->get('prontotype.templates'), 'pt');
@@ -37,6 +39,6 @@ class ViewProvider implements ProviderInterface
         $twig->addExtension($container->make('Amu\Twig\TwigMarkdown\TwigMarkdownExtension'));
         $twig->addExtension($container->make('Prontotype\View\Twig\Extension\ProntotypeExtension'));
         
-        $container->share($twig)->alias('prontotype.view.environment', 'Prontotype\View\Twig\Environment');       
+        $container->share($twig)->alias('prontotype.view.environment', 'Prontotype\View\Twig\Environment');
     }
 }

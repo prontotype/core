@@ -4,23 +4,21 @@ use Prontotype\View\Twig\Environment;
 use Amu\SuperSharp\Http\Response;
 use Prontotype\Http\Request;
 use Prontotype\Config;
+use Prontotype\View\Globals;
 use Prontotype\Exception\NotFoundException;
 
 abstract class BaseController {
 
-    public function __construct(Environment $twig, Config $config)
+    public function __construct(Environment $twig, Config $config, Globals $globals)
     {
         $this->twig = $twig;
         $this->config = $config;
+        $this->globals = $globals;
     }
 
     public function before(Request $request)
     {
-        // add current request into global variables
-        $globals = $this->twig->getGlobals();
-        $pt = $globals['pt'];
-        $pt['request'] = $request;
-        $this->twig->addGlobal('pt', $pt);
+        $this->globals->add('request', $request);
     }
 
     public function renderTemplate($templatePath, $params = array(), $attr = array())

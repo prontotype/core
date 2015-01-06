@@ -19,9 +19,6 @@ routes:
   example:
     match: '/category/{category}'
     template: 'about'
-
-data:
-  directory: data
   
 prontotype:
   server: server.php

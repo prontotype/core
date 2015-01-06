@@ -12,13 +12,13 @@
         "dflydev/apache-mime-types": "~1.0",
         "allmarkedup/twig-extensions": "~0.2",
         "allmarkedup/super-sharp-router": "~0.2",
-        "allmarkedup/dayglo": "~0.1",
         "allmarkedup/conph": "dev-master",
         "allmarkedup/ffs": "dev-master",
         "rdlowrey/auryn": "~0.14",
         "illuminate/support": "~4.2",
         "prontotype/composer-installer": "dev-master",
-        "prontotype/data-plugin": "dev-master"
+        "prontotype/data-plugin": "dev-master",
+        "league/event": "~2.0"
     },
     "autoload": {
         "psr-4": {
@@ -31,11 +31,11 @@
     "repositories": [
         {
             "type":"vcs",
-            "url":"/Users/mark/Projects/clearleft/prontotype-plugins/data"
+            "url": "/Users/mark/Projects/prontotype/data-plugin"
         },
         {
             "type":"vcs",
-            "url":"/Users/mark/Projects/clearleft/prontotype-composer"
+            "url":"git@github.com:prontotype/data-plugin.git"
         }
     ]
 }

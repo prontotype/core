@@ -1,7 +1,7 @@
 <?php namespace Prontotype\Providers;
 
 use Prontotype\Config;
-use Auryn\Provider as Container;
+use Prontotype\Container;
 
 class ConfigProvider implements ProviderInterface
 {
@@ -15,6 +15,7 @@ class ConfigProvider implements ProviderInterface
 
     public function register(Container $container)
     {
+        $events = $container->make('prontotype.events');
         $config = new Config([
             'prontotype' => [
                 'basepath' => $this->basePath,
@@ -22,7 +23,9 @@ class ConfigProvider implements ProviderInterface
             ]
         ]);
         $config->mergeWithFile(make_path($this->srcPath, $this->configPath));
-        $config->mergeWithFile(make_path($this->basePath, $this->configPath));
-        $container->share($config)->alias('prontotype.config', 'Prontotype\Config');   
+        $container->share($config)->alias('prontotype.config', 'Prontotype\Config');
+        $events->addListener('plugins.config.loaded', function() use ($config){
+            $config->mergeWithFile(make_path($this->basePath, $this->configPath));
+        });
     }
 }

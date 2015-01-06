@@ -7,6 +7,10 @@ use Prontotype\Exception\NotFoundException;
 
 class Application
 {
+    protected $onError;
+
+    protected $onNotFound;
+
     public function __construct(Router $router)
     {
         $this->router = $router;

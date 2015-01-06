@@ -1,7 +1,7 @@
 <?php namespace Prontotype;
 
 use Auryn\ReflectionPool;
-use Auryn\Provider as Injector;
+use Prontotype\Container;
 use Prontotype\Config;
 use Prontotype\Providers\ProviderInterface;
 use Prontotype\Providers\HttpProvider;
@@ -9,6 +9,9 @@ use Prontotype\Providers\ViewProvider;
 use Prontotype\Providers\ConfigProvider;
 use Prontotype\Providers\ConsoleProvider;
 use Prontotype\Providers\PluginProvider;
+use Prontotype\Providers\TestProvider;
+use Prontotype\Providers\EventProvider;
+use Prontotype\Providers\UserConfigProvider;
 
 class Application {
 
@@ -22,7 +25,7 @@ class Application {
 
     public function __construct($basePath)
     {
-        $this->container = new Injector(new ReflectionPool());
+        $this->container = new Container(new ReflectionPool());
         $this->basePath = realpath($basePath);
         $this->srcPath = realpath(__DIR__ . '/..');
         $this->registerServices();
@@ -30,11 +33,13 @@ class Application {
 
     protected function registerServices()
     {
+        $this->register(new EventProvider());
         $this->register(new ConfigProvider($this->basePath, $this->srcPath));
         $this->register(new ViewProvider());
         $this->register(new HttpProvider());
         $this->register(new ConsoleProvider());
         $this->register(new PluginProvider());
+        // $this->register(new TestProvider());
     }
 
     public function run()
@@ -48,7 +53,7 @@ class Application {
             $handler = $this->isRunningInConsole() ? $this->container->make('prontotype.console') : $this->container->make('prontotype.http');
             return $handler->run();
         } catch (\Exception $e) {
-            echo 'An appilcation error has occured.';
+            echo 'An application error has occured: ' . $e->getMessage();
         }
     }
 

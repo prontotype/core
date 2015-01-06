@@ -1,20 +1,18 @@
 <?php namespace Prontotype\View\Twig\Extension;
 
-use Amu\Dayglo\Loader as DataLoader;
+use Prontotype\View\Globals;
 
 class ProntotypeExtension extends \Twig_Extension
 {
-    public function __construct(DataLoader $loader)
+    public function __construct(Globals $globals)
     {
-        $this->dataloader = $loader;
+        $this->globals = $globals;
     }
 
     public function getGlobals()
     {
         return array(
-            'pt' => array(
-                'data' => $this->dataloader
-            )
+            'pt' => $this->globals->all()
         );
     }
 

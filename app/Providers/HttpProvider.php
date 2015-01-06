@@ -1,6 +1,6 @@
 <?php namespace Prontotype\Providers;
 
-use Auryn\Provider as Container;
+use Prontotype\Container;
 use Amu\SuperSharp\Router;
 use Amu\SuperSharp\Http\Response;
 
@@ -42,29 +42,29 @@ class HttpProvider implements ProviderInterface
 
         // handle errors --------
         
-        $viewLoader = $container->make('prontotype.view.loader');
+        // $viewLoader = $container->make('prontotype.view.loader');
 
-        $handler->notFound(function() use ($viewLoader) {
-            // try {
-            //     $template = $viewLoader->findNotFoundTemplate();
-            //     $response = $template->render();
-            // } catch( \Exception $e ) {
-            //     $response = 'Page not found';
-            // }
-            $response = 'Page not found';
-            return new Response($response, 404);
-        });
+        // $handler->notFound(function() use ($viewLoader) {
+        //     // try {
+        //     //     $template = $viewLoader->findNotFoundTemplate();
+        //     //     $response = $template->render();
+        //     // } catch( \Exception $e ) {
+        //     //     $response = 'Page not found';
+        //     // }
+        //     $response = 'Page not found';
+        //     return new Response($response, 404);
+        // });
         
-        $handler->error(function($e) use ($viewLoader) {
-            // try { 
-            //     $template = $viewLoader->findErrorTemplate();
-            //     $response = $template->render();
-            // } catch( \Exception $e ) {
-            //     $response = 'A server error occurred (' . $e->getMessage() . ')';
-            // }
-            $response = 'A server error occurred (' . $e->getMessage() . ')';
-            return new Response($response, 500);
-        });
+        // $handler->error(function($e) use ($viewLoader) {
+        //     // try { 
+        //     //     $template = $viewLoader->findErrorTemplate();
+        //     //     $response = $template->render();
+        //     // } catch( \Exception $e ) {
+        //     //     $response = 'A server error occurred (' . $e->getMessage() . ')';
+        //     // }
+        //     $response = 'A server error occurred (' . $e->getMessage() . ')';
+        //     return new Response($response, 500);
+        // });
     }
 
     public function buildUserRoutes($handler, $routes)

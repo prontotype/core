@@ -1,6 +1,6 @@
 <?php namespace Prontotype\Providers;
 
-use Auryn\Provider as Container;
+use Prontotype\Container;
 
 interface ProviderInterface
 {
