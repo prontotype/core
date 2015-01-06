@@ -22,9 +22,8 @@ class ViewProvider implements ProviderInterface
         $container->share('Prontotype\View\Globals')->alias('prontotype.view.globals', 'Prontotype\View\Globals');
         
         $loader = $container->make('prontotype.view.loader');
-        // $loader->addPath($conf->get('prontotype.templates'), 'pt');
 
-        $cache = empty($conf->get('cache.directory')) ? false : $conf->get('cache.directory');
+        $cache = empty($conf->get('cache.directory')) || ! file_exists($conf->get('cache.directory')) ? false : $conf->get('cache.directory');
         $cacheAutoReload = ($cache && $conf->get('cache.auto_reload'));
         
         $twig = new Environment($loader, array(
@@ -40,5 +39,10 @@ class ViewProvider implements ProviderInterface
         $twig->addExtension($container->make('Prontotype\View\Twig\Extension\ProntotypeExtension'));
         
         $container->share($twig)->alias('prontotype.view.environment', 'Prontotype\View\Twig\Environment');
+    }
+
+    public function boot(Container $container)
+    {
+        
     }
 }

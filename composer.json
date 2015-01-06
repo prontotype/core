@@ -10,15 +10,17 @@
         "twig/twig": "~1.16",
         "symfony/console": "2.6.*",
         "dflydev/apache-mime-types": "~1.0",
+        "rdlowrey/auryn": "~0.14",
+        "illuminate/support": "~4.2",
+        "league/event": "~2.0",
         "allmarkedup/twig-extensions": "~0.2",
         "allmarkedup/super-sharp-router": "~0.2",
         "allmarkedup/conph": "dev-master",
         "allmarkedup/ffs": "dev-master",
-        "rdlowrey/auryn": "~0.14",
-        "illuminate/support": "~4.2",
         "prontotype/composer-installer": "dev-master",
         "prontotype/data-plugin": "dev-master",
-        "league/event": "~2.0"
+        "prontotype/user-routes-plugin": "dev-master",
+        "prontotype/shorturls-plugin": "dev-master"
     },
     "autoload": {
         "psr-4": {
@@ -31,11 +33,19 @@
     "repositories": [
         {
             "type":"vcs",
-            "url": "/Users/mark/Projects/prontotype/data-plugin"
+            "url": "git@github.com:prontotype/composer-installer.git"
         },
         {
             "type":"vcs",
             "url":"git@github.com:prontotype/data-plugin.git"
+        },
+        {
+            "type":"vcs",
+            "url":"git@github.com:prontotype/user-routes-plugin"
+        },
+        {
+            "type":"vcs",
+            "url":"git@github.com:prontotype/shorturls-plugin"
         }
     ]
 }

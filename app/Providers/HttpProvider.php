@@ -1,45 +1,37 @@
 <?php namespace Prontotype\Providers;
 
 use Prontotype\Container;
+use League\Event\Event;
 use Amu\SuperSharp\Router;
 use Amu\SuperSharp\Http\Response;
 
 class HttpProvider implements ProviderInterface
 {
-    protected $catchallController = 'Prontotype\Http\Controllers\DefaultController::catchall';
-
-    protected $idRedirectController = 'Prontotype\Http\Controllers\DefaultController::redirectById';
-
-    protected $notFoundController = 'Prontotype\Http\Controllers\DefaultController::notFound';
-
     public function register(Container $container)
     {
         $conf = $container->make('prontotype.config');
-
         $container->define('Prontotype\Http\ControllerHandler', [':container' => $container]);
         $container->define('Amu\SuperSharp\Router', ['handler' => 'Prontotype\Http\ControllerHandler']);
         $container->alias('prontotype.http', 'Prontotype\Http\Application')->share('prontotype.http');
-        
+    }
+
+    public function boot(Container $container)
+    {
+        $events = $container->make('prontotype.events');
         $handler = $container->make('prontotype.http');
-
-        // bind routes --------
         
-        $this->buildUserRoutes($handler, $conf->get('routes') ?: array());
-
-        if ($conf->get('short_urls')) {
-            $handler->get('/id:{templateId}', $this->idRedirectController)
-                ->name('redirect');
-        }
-        
-        $handler->get('/{templatePath}', $this->notFoundController)
+        $events->addListener('plugins.loaded', function() use ($handler) {
+            
+            $handler->get('/{templatePath}', 'Prontotype\Http\Controllers\DefaultController::notFound')
                 ->name('notfound')
                 ->assert('templatePath', '[^:]+:.+');
 
-        $handler->get('/{templatePath}', $this->catchallController)
+            $handler->get('/{templatePath}', 'Prontotype\Http\Controllers\DefaultController::catchall')
                 ->name('default')
                 ->value('templatePath', '/')
                 ->assert('templatePath', '.+');
-
+        });
+        
         // handle errors --------
         
         // $viewLoader = $container->make('prontotype.view.loader');
@@ -65,40 +57,7 @@ class HttpProvider implements ProviderInterface
         //     $response = 'A server error occurred (' . $e->getMessage() . ')';
         //     return new Response($response, 500);
         // });
+
     }
 
-    public function buildUserRoutes($handler, $routes)
-    {
-        $translatedRoutes = array();
-        foreach($routes as $routeName => $route) {
-            $segments = explode('/', trim($route['match'],'/'));
-            $cleanSegments = array();
-            $params = array();
-            foreach($segments as $segment) {
-                if ( strpos($segment, '{') === false ) {
-                    $cleanSegments[] = $segment;
-                } else {
-                    @list($name, $assert, $default) = explode(':', str_replace(array('{','}'), '', $segment));
-                    $cleanSegments[] = '{' . $name . '}';
-                    $params[$name] = array(
-                        'name' => $name,
-                        'assert' => $assert,
-                        'default' => $default
-                    );
-                }
-            }
-            $routePath = '/' . implode('/', $cleanSegments);
-            $controller = isset($route['controller']) ? $route['controller'] : $this->catchallController;
-            $templatePath = isset($route['template']) ? $route['template'] : null;
-            $userRoute = $handler->get($routePath, $controller)->name($routeName)->value('templatePath', $templatePath);
-            foreach($params as $paramSet) {
-                if ($paramSet['assert']) {
-                    $userRoute->assert($paramSet['name'], $paramSet['assert']);
-                }
-                if ($paramSet['default']) {
-                    $userRoute->value($paramSet['name'], $paramSet['default']);
-                }
-            }
-        }
-    }
 }

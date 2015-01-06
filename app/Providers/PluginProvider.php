@@ -13,18 +13,20 @@ class PluginProvider implements ProviderInterface
     {
         $conf = $container->make('prontotype.config');
         $globals = $container->make('prontotype.view.globals');
-        $events = $container->make('prontotype.events');
-        $plugins = $this->getPluginDefinitions($conf->get('prontotype.plugins'), $container);
+        $this->plugins = $this->getPluginDefinitions($conf->get('prontotype.plugins'), $container);
 
-        foreach($plugins as $plugin) {
+        foreach($this->plugins as $plugin) {
             $this->loadPluginConfig($plugin, $container);
         }
+        $container->make('prontotype.events')->emit(Event::named('plugins.configured'));
+    }
 
-        $events->emit(Event::named('plugins.config.loaded'));
-
-        foreach($plugins as $plugin) {
+    public function boot(Container $container)
+    {
+        foreach($this->plugins as $plugin) {
             $this->initPlugin($plugin, $container);
         }
+        $container->make('prontotype.events')->emit(Event::named('plugins.loaded'));
     }
 
     protected function getPluginDefinitions($pluginDir, &$container)

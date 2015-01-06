@@ -24,8 +24,11 @@ class ConfigProvider implements ProviderInterface
         ]);
         $config->mergeWithFile(make_path($this->srcPath, $this->configPath));
         $container->share($config)->alias('prontotype.config', 'Prontotype\Config');
-        $events->addListener('plugins.config.loaded', function() use ($config){
-            $config->mergeWithFile(make_path($this->basePath, $this->configPath));
-        });
+    }
+
+    public function boot(Container $container)
+    {
+        $config = $container->make('prontotype.config');
+        $config->mergeWithFile(make_path($this->basePath, $this->configPath));
     }
 }

@@ -16,6 +16,11 @@ class ConsoleProvider implements ProviderInterface
 
         $handler = $container->make('prontotype.console');
         $handler->setAutoExit(false);
+    }
+
+    public function boot(Container $container)
+    {
+        $handler = $container->make('prontotype.console');
         $handler->add($container->make('Prontotype\Console\Commands\ServeCommand'));
     }
 }

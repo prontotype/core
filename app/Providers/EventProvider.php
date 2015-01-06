@@ -8,4 +8,9 @@ class EventProvider implements ProviderInterface
     {
         $container->share('League\Event\Emitter')->alias('prontotype.events', 'League\Event\Emitter');
     }
+
+    public function boot(Container $container)
+    {
+        
+    }
 }

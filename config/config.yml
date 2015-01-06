@@ -1,7 +1,5 @@
 debug: false
 
-short_urls: true
-
 public:
   directory: public
 
@@ -14,11 +12,6 @@ templates:
   extension: html
   notfound: _errors/404
   error: _errors/500
-
-routes:
-  example:
-    match: '/category/{category}'
-    template: 'about'
   
 prontotype:
   server: server.php

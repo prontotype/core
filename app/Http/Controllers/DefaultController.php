@@ -12,12 +12,4 @@ class DefaultController extends BaseController
             'Content-Type' => $request->getRequestMime()
         ]);
     }
-    
-    public function redirectById($templateId, Request $request)
-    {
-        $template = $this->fetchTemplate('id:' . $templateId, true);
-        $path = preg_replace('/' . '\.' . $this->config->get('templates.extension') . '$/', '', $template->getRelativePathname());
-        return new RedirectResponse($path, 301);
-    }
-
 }

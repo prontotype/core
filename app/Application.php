@@ -48,6 +48,10 @@ class Application {
         foreach($this->providers as $provider) {
             $provider->register($this->container);
         }
+        // boot all services
+        foreach($this->providers as $provider) {
+            $provider->boot($this->container);
+        }
         // run the appropriate handler
         try {
             $handler = $this->isRunningInConsole() ? $this->container->make('prontotype.console') : $this->container->make('prontotype.http');
