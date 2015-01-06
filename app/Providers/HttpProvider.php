@@ -19,9 +19,9 @@ class HttpProvider implements ProviderInterface
     {
         $events = $container->make('prontotype.events');
         $handler = $container->make('prontotype.http');
-        
+
         $events->addListener('plugins.loaded', function() use ($handler) {
-            
+
             $handler->get('/{templatePath}', 'Prontotype\Http\Controllers\DefaultController::notFound')
                 ->name('notfound')
                 ->assert('templatePath', '[^:]+:.+');
@@ -31,32 +31,16 @@ class HttpProvider implements ProviderInterface
                 ->value('templatePath', '/')
                 ->assert('templatePath', '.+');
         });
-        
-        // handle errors --------
-        
-        // $viewLoader = $container->make('prontotype.view.loader');
 
-        // $handler->notFound(function() use ($viewLoader) {
-        //     // try {
-        //     //     $template = $viewLoader->findNotFoundTemplate();
-        //     //     $response = $template->render();
-        //     // } catch( \Exception $e ) {
-        //     //     $response = 'Page not found';
-        //     // }
-        //     $response = 'Page not found';
-        //     return new Response($response, 404);
-        // });
+        $handler->notFound(function() {
+            $response = 'Page not found';
+            return new Response($response, 404);
+        });
         
-        // $handler->error(function($e) use ($viewLoader) {
-        //     // try { 
-        //     //     $template = $viewLoader->findErrorTemplate();
-        //     //     $response = $template->render();
-        //     // } catch( \Exception $e ) {
-        //     //     $response = 'A server error occurred (' . $e->getMessage() . ')';
-        //     // }
-        //     $response = 'A server error occurred (' . $e->getMessage() . ')';
-        //     return new Response($response, 500);
-        // });
+        $handler->error(function($e) {
+            $response = 'An application error occurred.';
+            return new Response($response, 500);
+        });
 
     }
 
