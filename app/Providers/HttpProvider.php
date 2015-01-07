@@ -20,16 +20,13 @@ class HttpProvider implements ProviderInterface
         $events = $container->make('prontotype.events');
         $handler = $container->make('prontotype.http');
 
-        $events->addListener('plugins.loaded', function() use ($handler) {
-
-            $handler->get('/{templatePath}', 'Prontotype\Http\Controllers\DefaultController::notFound')
-                ->name('notfound')
-                ->assert('templatePath', '[^:]+:.+');
-
+        $events->addListener('plugins.loaded', function() use ($handler, $events) {
+            $events->emit(Event::named('appRoutes.register.start'));
             $handler->get('/{templatePath}', 'Prontotype\Http\Controllers\DefaultController::catchall')
                 ->name('default')
                 ->value('templatePath', '/')
-                ->assert('templatePath', '.+');
+                ->assert('templatePath', '[^:]+');
+            $events->emit(Event::named('appRoutes.register.end'));
         });
 
         $handler->notFound(function() {
@@ -37,11 +34,10 @@ class HttpProvider implements ProviderInterface
             return new Response($response, 404);
         });
         
-        $handler->error(function($e) {
+        $handler->appError(function($e) {
             $response = 'An application error occurred.';
             return new Response($response, 500);
         });
-
     }
 
 }

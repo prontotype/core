@@ -31,7 +31,6 @@ class ViewProvider implements ProviderInterface
             'base_template_class' => 'Prontotype\View\Twig\Template',
             'cache'             => $cache,
             'auto_reload'       => $cacheAutoReload,
-            'debug'             => $conf->get('debug'),
             'autoescape'        => false
         ));
 

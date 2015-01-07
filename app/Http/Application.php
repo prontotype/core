@@ -4,10 +4,11 @@ use Amu\SuperSharp\Router;
 
 use Prontotype\Http\Request as ProntotypeRequest;
 use Prontotype\Exception\NotFoundException;
+use Symfony\Component\Routing\Exception\ResourceNotFoundException;
 
 class Application
 {
-    protected $onError;
+    protected $onAppError;
 
     protected $onNotFound;
 
@@ -28,9 +29,9 @@ class Application
         $this->onNotFound = $callback;
     }
 
-    public function error($callback)
+    public function appError($callback)
     {
-        $this->onError = $callback;
+        $this->onAppError = $callback;
     }
 
     public function run()
@@ -39,8 +40,10 @@ class Application
             $response = $this->router->match(ProntotypeRequest::createFromGlobals());
         } catch (NotFoundException $e) {
             $response = $this->runError('onNotFound', $e);
+        } catch (ResourceNotFoundException $e) {
+            $response = $this->runError('onNotFound', $e);
         } catch (\Exception $e) {
-            $response = $this->runError('onError', $e);
+            $response = $this->runError('onAppError', $e);
         }
         if (is_string($response)) {
             $response = new Response($response);

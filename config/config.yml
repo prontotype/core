@@ -1,5 +1,3 @@
-debug: false
-
 public:
   directory: public
 
