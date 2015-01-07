@@ -28,6 +28,11 @@ class Config extends Conph {
         return $this->getPathWithBase($value);
     }
 
+    public function convertPluginsDirectory($value)
+    {
+        return $this->getPathWithBase($value);
+    }
+
     public function convertProntotypeServer($path)
     {
         return $this->getProntotypePath($path);
@@ -36,11 +41,6 @@ class Config extends Conph {
     public function convertProntotypeTemplates($path)
     {
         return $this->getProntotypePath($path);
-    }
-
-    public function convertProntotypePlugins($value)
-    {
-        return $this->getProntotypePath($value);
     }
 
     protected function getProntotypePath($path)

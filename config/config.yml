@@ -8,8 +8,10 @@ cache:
 templates:
   directory: templates
   extension: html
+
+plugins:
+  directory: vendor/prontotype/plugins
   
 prontotype:
   server: server.php
   templates: templates
-  plugins: vendor/prontotype/plugins
