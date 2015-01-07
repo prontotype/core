@@ -16,7 +16,11 @@
         "allmarkedup/twig-extensions": "~0.2",
         "allmarkedup/super-sharp-router": "~0.2",
         "allmarkedup/conph": "~0.1",
-        "allmarkedup/ffs": "~0.1"
+        "allmarkedup/ffs": "~0.1",
+        "prontotype/composer-installer": "~0.1",
+        "prontotype/data-plugin": "dev-master",
+        "prontotype/user-routes-plugin": "dev-master",
+        "prontotype/short-urls-plugin": "dev-master"
     },
     "autoload": {
         "psr-4": {
@@ -25,5 +29,19 @@
         "files": [
             "helpers.php"
         ]
-    }
+    },
+    "repositories": [
+        {
+            "type":"vcs",
+            "url":"git@github.com:prontotype/data-plugin.git"
+        },
+        {
+            "type":"vcs",
+            "url":"git@github.com:prontotype/user-routes-plugin"
+        },
+        {
+            "type":"vcs",
+            "url":"git@github.com:prontotype/short-urls-plugin"
+        }
+    ]
 }
