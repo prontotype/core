@@ -2,7 +2,7 @@
 
 use Prontotype\Container;
 use Prontotype\Config;
-use League\Event\Event;
+use Prontotype\Event;
 use DirectoryIterator;
 
 class PluginProvider implements ProviderInterface

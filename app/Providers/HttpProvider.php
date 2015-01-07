@@ -1,7 +1,7 @@
 <?php namespace Prontotype\Providers;
 
 use Prontotype\Container;
-use League\Event\Event;
+use Prontotype\Event;
 use Amu\SuperSharp\Router;
 use Amu\SuperSharp\Http\Response;
 
