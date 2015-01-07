@@ -49,4 +49,14 @@ abstract class Template extends Twig_Template
         return $this->file->getMetadata();
     }
 
+    public function getBody()
+    {
+        return $this->file->getBody();
+    }
+
+    public function getFilename()
+    {
+        return $this->file->getBasename();
+    }
+
 }

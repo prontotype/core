@@ -17,7 +17,7 @@ class ViewProvider implements ProviderInterface
             ':paths' => $conf->get('templates.directory'),
             ':defaultExt' => $conf->get('templates.extension')
         ]);
-        $container->alias('prontotype.view.loader', 'Prontotype\View\Twig\Loader');
+        $container->share('Prontotype\View\Twig\Loader')->alias('prontotype.view.loader', 'Prontotype\View\Twig\Loader');
 
         $container->share('Prontotype\View\Globals')->alias('prontotype.view.globals', 'Prontotype\View\Globals');
         

@@ -1,7 +1,7 @@
 <?php namespace Prontotype\Http;
 
 use Amu\SuperSharp\Router;
-
+use Amu\SuperSharp\Http\Response;
 use Prontotype\Http\Request as ProntotypeRequest;
 use Prontotype\Exception\NotFoundException;
 use Symfony\Component\Routing\Exception\ResourceNotFoundException;

@@ -1,0 +1,5 @@
+{% if metadata.preview %}
+{% include metadata.preview with {content: template.render|raw} %}
+{% else %}
+{{ template.render|raw }}
+{% endif %}

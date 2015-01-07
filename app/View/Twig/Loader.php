@@ -31,7 +31,7 @@ class Loader extends \Twig_Loader_Filesystem
         if (!isset($this->paths[$namespace])) {
             throw new \Twig_Error_Loader(sprintf('There are no registered paths for namespace "%s".', $namespace));
         }
-
+        
         foreach ($this->paths[$namespace] as $path) {
             $finder = new Finder($path);
             $results = $finder->guess($shortname);

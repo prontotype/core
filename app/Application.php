@@ -11,7 +11,7 @@ use Prontotype\Providers\ConsoleProvider;
 use Prontotype\Providers\PluginProvider;
 use Prontotype\Providers\TestProvider;
 use Prontotype\Providers\EventProvider;
-use Prontotype\Providers\UserConfigProvider;
+use Prontotype\Providers\TapestryProvider;
 
 class Application {
 
@@ -39,6 +39,7 @@ class Application {
         $this->register(new HttpProvider());
         $this->register(new ConsoleProvider());
         $this->register(new PluginProvider());
+        $this->register(new TapestryProvider());
         // $this->register(new TestProvider());
     }
 

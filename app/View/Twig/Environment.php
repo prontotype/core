@@ -19,13 +19,13 @@ class Environment extends \Twig_Environment
     protected function doLoadTemplate($name, $index = null)
     {
         $cls = $this->getTemplateClass($name, $index);
-        
+                
         if (isset($this->loadedTemplates[$cls])) {
             return $this->loadedTemplates[$cls];
         }
 
         if (!class_exists($cls, false)) {
-            
+                    
             $tpl = $this->getLoader()->findTemplate($name);
 
             if (false === $cache = $this->getCacheFilename($name)) {

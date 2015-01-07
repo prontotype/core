@@ -6,6 +6,7 @@ use Prontotype\Http\Request;
 use Prontotype\Config;
 use Prontotype\View\Globals;
 use Prontotype\Exception\NotFoundException;
+use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 
 abstract class BaseController {
 
@@ -25,6 +26,17 @@ abstract class BaseController {
     {   
         $template = $this->fetchTemplate($templatePath);
         return new Response($template->render($params), 200, $attr);
+    }
+
+    public function downloadTemplate($templatePath, $params = array(), $attr = array())
+    {   
+        $template = $this->fetchTemplate($templatePath);
+        $response = new Response($template->render($params), 200, $attr);
+        $response->headers->set('Content-Disposition', $response->headers->makeDisposition(
+            ResponseHeaderBag::DISPOSITION_ATTACHMENT,
+            $template->getFilename()
+        ));
+        return $response;
     }
 
     public function fetchTemplate($templatePath, $allowHidden = false)

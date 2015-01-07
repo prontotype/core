@@ -1,0 +1,9 @@
+{% for key, value in metadata %}
+{{ key }}: {{ value }}<br>
+{% endfor %}
+
+<iframe src="/markup/{{ path }}.html/preview" frameborder="0"></iframe>
+
+<div>
+    {{ template.render|escape }}
+</div>

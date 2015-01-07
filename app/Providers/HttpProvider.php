@@ -28,14 +28,14 @@ class HttpProvider implements ProviderInterface
                 ->assert('templatePath', '[^:]+');
             $events->emit(Event::named('appRoutes.register.end'));
         });
-
+        
         $handler->notFound(function() {
             $response = 'Page not found';
             return new Response($response, 404);
         });
         
         $handler->appError(function($e) {
-            $response = 'An application error occurred.';
+            $response = 'An application error occurred.' . $e->getMessage();
             return new Response($response, 500);
         });
     }
