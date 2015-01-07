@@ -13,7 +13,7 @@ class PluginProvider implements ProviderInterface
     {
         $conf = $container->make('prontotype.config');
         $globals = $container->make('prontotype.view.globals');
-        $this->plugins = $this->getPluginDefinitions($conf->get('prontotype.plugins'), $container);
+        $this->plugins = $this->getPluginDefinitions($conf->get('plugins.directory'), $container);
 
         foreach($this->plugins as $plugin) {
             $this->loadPluginConfig($plugin, $container);
