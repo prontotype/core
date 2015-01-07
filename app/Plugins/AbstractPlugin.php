@@ -22,14 +22,4 @@ abstract class AbstractPlugin
         return array();
     }
 
-    public function registerRoutes(Http $app)
-    {
-        
-    }
-
-    public function registerCommands(Console $app)
-    {
-        
-    }
-
 }

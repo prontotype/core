@@ -3,7 +3,7 @@
 class Globals {
 
     protected $globals = array();
-
+    
     public function add($key, $value)
     {
         $this->globals[$key] = $value;

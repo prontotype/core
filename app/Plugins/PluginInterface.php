@@ -6,10 +6,10 @@ interface PluginInterface
 {
     public function __construct($path, Container $container);
 
-    // public function getGlobals();
+    public function register();
 
-    // public function getRoutes();
+    public function getGlobals();
 
-    // public function getCommands();
+    public function getConfig();
 
 }
