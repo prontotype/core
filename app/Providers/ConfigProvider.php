@@ -28,7 +28,10 @@ class ConfigProvider implements ProviderInterface
 
     public function boot(Container $container)
     {
-        $config = $container->make('prontotype.config');
-        $config->mergeWithFile(make_path($this->basePath, $this->configPath));
+        $userConfigPath = make_path($this->basePath, $this->configPath);
+        if ( file_exists($userConfigPath) ) {
+            $config = $container->make('prontotype.config');
+            $config->mergeWithFile($userConfigPath);    
+        }
     }
 }
