@@ -20,7 +20,7 @@
         "prontotype/composer-installer": "dev-master",
         "prontotype/data-plugin": "dev-master",
         "prontotype/user-routes-plugin": "dev-master",
-        "prontotype/shorturls-plugin": "dev-master"
+        "prontotype/short-urls-plugin": "dev-master"
     },
     "autoload": {
         "psr-4": {
@@ -45,7 +45,7 @@
         },
         {
             "type":"vcs",
-            "url":"git@github.com:prontotype/shorturls-plugin"
+            "url":"git@github.com:prontotype/short-urls-plugin"
         }
     ]
 }
