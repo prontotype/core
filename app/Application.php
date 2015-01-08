@@ -26,6 +26,7 @@ class Application {
     public function __construct($basePath)
     {
         $this->container = new Container(new ReflectionPool());
+        $this->container->share($this->container)->alias('prontotype.container', 'Prontotype\Container');
         $this->basePath = realpath($basePath);
         $this->srcPath = realpath(__DIR__ . '/..');
         $this->registerServices();

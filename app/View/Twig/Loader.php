@@ -25,7 +25,7 @@ class Loader extends \Twig_Loader_Filesystem
         }
 
         $this->validateName($name);
-        
+  
         list($namespace, $shortname) = $this->parseName($name);
         
         if (!isset($this->paths[$namespace])) {
@@ -36,7 +36,7 @@ class Loader extends \Twig_Loader_Filesystem
             $finder = new Finder($path);
             $results = $finder->guess($shortname);
             if ($results->count()) {
-                return $this->cache[$name] = $results->first();
+                return $this->cache[$shortname] = $results->first();
             }
         }
 

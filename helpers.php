@@ -116,3 +116,27 @@ if ( ! function_exists('value'))
         return $value instanceof Closure ? $value() : $value;
     }
 }
+
+if ( ! function_exists('title_case'))
+{
+    function title_case($title)
+    { 
+        $smallwordsarray = array('of','a','the','and','an','or','nor','but','is','if','then','else','when','at','from','by','on','off','for','in','out','over','to','into','with');
+        $words = explode(' ', $title); 
+        foreach ($words as $key => $word) { 
+            if ($key == 0 or !in_array($word, $smallwordsarray)) {
+                $words[$key] = ucwords(strtolower($word)); 
+            }
+        }
+        $newtitle = implode(' ', $words); 
+        return $newtitle; 
+    }
+}
+
+if ( ! function_exists('titlize'))
+{
+    function titlize($str)
+    { 
+         return title_case(str_replace(array('-','_'), ' ', $str));
+    }
+}

@@ -1,7 +1,8 @@
-<?php namespace Prontotype\Http\Controllers;
+<?php namespace Prontotype\Tapestry\Controllers;
 
 use Prontotype\Http\Request;
 use Prontotype\Exception\NotFoundException;
+use Prontotype\Http\Controllers\BaseController;
 
 class TapestryController extends BaseController
 {    

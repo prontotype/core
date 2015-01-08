@@ -13,33 +13,53 @@ class TapestryProvider implements ProviderInterface
         $handler = $this->container->make('prontotype.http');
         $events = $this->container->make('prontotype.events');
         $loader = $container->make('prontotype.view.loader');
-        
+
         $events->emit(Event::named('tapestry.register.start'));
+
+        $globals = array();
+
+        $this->container->alias('tapestry.repo.markup', 'Prontotype\Tapestry\Repositories\MarkupRepository')->share('tapestry.repo.markup');
 
         $loader->addPath(make_path($conf->get('prontotype.srcpath'), 'tapestry/templates'), 'tapestry'); // doto: split out into config
 
+        $this->setRoutes($handler, $events);
+      
 
-        $handler->get('/', 'Prontotype\Http\Controllers\TapestryController::index')
+        $globals['markup'] = $this->container->make('tapestry.repo.markup');
+        $globals['config'] = $conf->get('tapestry');
+                
+        $container->make('prontotype.view.globals')->add('tapestry', $globals);
+
+        $events->emit(Event::named('tapestry.register.end'));
+    }
+
+    public function setRoutes($handler, $events)
+    {
+        $handler->get('/', 'Prontotype\Tapestry\Controllers\TapestryController::index')
             ->name('tapestry.index');
 
         // markup
         
-        $handler->get('/markup', 'Prontotype\Http\Controllers\TapestryController::markupIndex')
+        $handler->get('/markup', 'Prontotype\Tapestry\Controllers\TapestryController::markupIndex')
             ->name('tapestry.markup.index');
 
-        $handler->get('/markup/{path}.html/preview', 'Prontotype\Http\Controllers\MarkupController::preview')
+        $handler->get('/markup/{path}.html/preview', 'Prontotype\Tapestry\Controllers\MarkupController::preview')
             ->name('tapestry.markup.preview')
             ->assert('path', '.+');
 
-        $handler->get('/markup/{path}.html/raw', 'Prontotype\Http\Controllers\MarkupController::raw')
+        $handler->get('/markup/{path}.html/raw', 'Prontotype\Tapestry\Controllers\MarkupController::raw')
             ->name('tapestry.markup.raw')
             ->assert('path', '.+');
 
-        $handler->get('/markup/{path}.html/download', 'Prontotype\Http\Controllers\MarkupController::download')
+        $handler->get('/markup/{path}.html/download', 'Prontotype\Tapestry\Controllers\MarkupController::download')
             ->name('tapestry.markup.download')
             ->assert('path', '.+');
 
-        $handler->get('/markup/{path}.html', 'Prontotype\Http\Controllers\MarkupController::detail')
+        $handler->get('/markup/{path}.html/highlight', 'Prontotype\Tapestry\Controllers\MarkupController::highlight')
+            ->name('tapestry.markup.highlight')
+            ->assert('path', '.+');
+
+        $handler->get('/markup/{path}.html', 'Prontotype\Tapestry\Controllers\MarkupController::detail')
             ->name('tapestry.markup.detail')
             ->assert('path', '.+');
 
@@ -55,9 +75,6 @@ class TapestryProvider implements ProviderInterface
                 ->value('templatePath', '/')
                 ->assert('templatePath', '[^:]+');
         });
-        
-
-        $events->emit(Event::named('tapestry.register.end'));
     }
 
     public function boot(Container $container)

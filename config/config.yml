@@ -14,4 +14,6 @@ plugins:
   
 prontotype:
   server: server.php
-  templates: templates
+
+tapestry:
+  title: Tapestry example

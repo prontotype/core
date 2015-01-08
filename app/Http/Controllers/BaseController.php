@@ -1,20 +1,19 @@
 <?php namespace Prontotype\Http\Controllers;
 
-use Prontotype\View\Twig\Environment;
+use Prontotype\Container;
 use Amu\SuperSharp\Http\Response;
 use Prontotype\Http\Request;
-use Prontotype\Config;
-use Prontotype\View\Globals;
 use Prontotype\Exception\NotFoundException;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 
 abstract class BaseController {
 
-    public function __construct(Environment $twig, Config $config, Globals $globals)
+    public function __construct(Container $container)
     {
-        $this->twig = $twig;
-        $this->config = $config;
-        $this->globals = $globals;
+        $this->twig = $container->make('prontotype.view.environment');
+        $this->globals = $container->make('prontotype.view.globals');
+        $this->config = $container->make('prontotype.config');
+        $this->container = $container;
     }
 
     public function before(Request $request)

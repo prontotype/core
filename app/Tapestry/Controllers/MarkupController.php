@@ -1,7 +1,8 @@
-<?php namespace Prontotype\Http\Controllers;
+<?php namespace Prontotype\Tapestry\Controllers;
 
 use Prontotype\Http\Request;
 use Prontotype\Exception\NotFoundException;
+use Prontotype\Http\Controllers\BaseController;
 
 class MarkupController extends BaseController
 {    
@@ -19,6 +20,16 @@ class MarkupController extends BaseController
     {
         $template = $this->fetchTemplate($path);
         return $this->renderTemplate('@tapestry/markup/preview.twig', [
+            "path" => $path,
+            "template" => $template,
+            "metadata" => $template->getMetadata()
+        ]);
+    }
+
+    public function highlight($path, Request $request)
+    {
+        $template = $this->fetchTemplate($path);
+        return $this->renderTemplate('@tapestry/markup/highlight.twig', [
             "path" => $path,
             "template" => $template,
             "metadata" => $template->getMetadata()

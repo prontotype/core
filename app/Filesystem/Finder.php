@@ -24,12 +24,23 @@ class Finder extends AmuFinder {
 
     public function hidden()
     {
-        return $this->hiddenEquals(true);
+        return $this->filter(function($file) {
+            return $file->isHidden();
+        });
     }
 
     public function notHidden()
     {
-        return $this->hiddenDoesNotEqual(true);
+        return $this->filter(function($file) {
+            return $file->isNotHidden();
+        });
+    }
+
+    public function metadataDoesNotExist($key)
+    {
+        return $this->filter(function($file) use ($key) {
+            return $file->metadataDoesNotExist($key);
+        });
     }
 
     public function all()
@@ -46,6 +57,20 @@ class Finder extends AmuFinder {
     public function toArray()
     {
         return array_values(iterator_to_array($this));
+    }
+
+     public function pathname($pathname)
+    {
+        $info = pathinfo(ltrim($pathname, '/'));
+        if ($info['dirname'] == '.') {
+            $depth = 0;
+        } else {
+            $depth = count(explode('/',$info['dirname']));
+            $this->path('/^' . str_replace('/', '\\/', $info['dirname']) . '/');
+        }
+        $this->depth('== ' . $depth);
+        $this->name($info['basename']);
+        return $this;
     }
 
 }

@@ -38,11 +38,6 @@ class Config extends Conph {
         return $this->getProntotypePath($path);
     }
 
-    public function convertProntotypeTemplates($path)
-    {
-        return $this->getProntotypePath($path);
-    }
-
     protected function getProntotypePath($path)
     {
         return realpath(make_path($this->get('prontotype.srcpath'), $path));
