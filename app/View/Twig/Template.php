@@ -30,6 +30,11 @@ abstract class Template extends Twig_Template
         return $this->file->getBasename();
     }
 
+    public function getData()
+    {
+        return $this->file->getMetadata();
+    }
+
     public function __call($name, $args)
     {
         if (method_exists($this->file, $name)) {

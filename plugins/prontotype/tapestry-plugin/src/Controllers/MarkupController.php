@@ -10,9 +10,7 @@ class MarkupController extends BaseController
     {
         $template = $this->fetchTemplate($path);
         return $this->renderTemplate('@tapestry/markup/detail.twig', [
-            "path" => $path,
-            "template" => $template,
-            "metadata" => $template->getMetadata()
+            "template" => $template
         ]);
     }
 
@@ -20,9 +18,7 @@ class MarkupController extends BaseController
     {
         $template = $this->fetchTemplate($path);
         return $this->renderTemplate('@tapestry/markup/preview.twig', [
-            "path" => $path,
-            "template" => $template,
-            "metadata" => $template->getMetadata()
+            "template" => $template
         ]);
     }
 
@@ -30,9 +26,7 @@ class MarkupController extends BaseController
     {
         $template = $this->fetchTemplate($path);
         return $this->renderTemplate('@tapestry/markup/highlight.twig', [
-            "path" => $path,
-            "template" => $template,
-            "metadata" => $template->getMetadata()
+            "template" => $template
         ]);
     }
 
@@ -40,9 +34,7 @@ class MarkupController extends BaseController
     {
         $template = $this->fetchTemplate($path);
         return $this->renderTemplate('@tapestry/markup/raw.twig', [
-            "path" => $path,
-            "template" => $template,
-            "metadata" => $template->getMetadata()
+            "template" => $template
         ],[
             'Content-Type' => 'text/plain'
         ]);

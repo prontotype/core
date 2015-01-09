@@ -30,6 +30,7 @@ class ViewProvider implements ProviderInterface
         $twig = new Environment($loader, array(
             'strict_variables'  => false,
             'base_template_class' => 'Prontotype\View\Twig\Template',
+            'debug' => true,
             'cache'             => $cache,
             'auto_reload'       => $cacheAutoReload,
             'autoescape'        => false
@@ -37,6 +38,7 @@ class ViewProvider implements ProviderInterface
 
         $twig->addExtension($container->make('Amu\Twig\TwigMarkdown\TwigMarkdownExtension'));
         $twig->addExtension($container->make('Prontotype\View\Twig\Extension\ProntotypeExtension'));
+        $twig->addExtension(new \Twig_Extension_Debug());
         
         $container->share($twig)->alias('prontotype.view.environment', 'Prontotype\View\Twig\Environment');
     }

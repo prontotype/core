@@ -1,0 +1,17 @@
+{{ dump(template.getMetadata()) }}
+  
+<ul>
+    <li><a href="{{ pt.tapestry.view.markupUrl(template.getUrlPath(), 'preview') }}">Preview</a></li>
+    <li><a href="{{ pt.tapestry.view.markupUrl(template.getUrlPath(), 'highlighted') }}">Highlighted</a></li>
+    <li><a href="{{ pt.tapestry.view.markupUrl(template.getUrlPath(), 'raw') }}">Raw</a></li>
+    <li><a href="{{ pt.tapestry.view.markupUrl(template.getUrlPath(), 'download') }}">Download</a></li>
+</ul>
+ 
+<iframe src="{{ pt.tapestry.view.markupUrl(template.getUrlPath(), 'preview') }}" frameborder="0"></iframe>
+
+{% include '@tapestry/partials/highlight.twig' with {content: template.render} %}
+
+
+{% if metadata.notes|length %}
+{{ metadata.notes|markdown }}
+{% endif %}

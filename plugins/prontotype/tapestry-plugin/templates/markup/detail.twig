@@ -1,14 +1,13 @@
 {% extends '@tapestry/layouts/sidebar.twig' %}
 
 {% block main %}
-{{ pt.tapestry.view.markupUrl(template.getUrlPath, 'preview') }}
-<iframe src="{{ pt.tapestry.view.markupUrl(template.getUrlPath, 'preview') }}" frameborder="0"></iframe>
 
-<a href="/markup/{{ path }}.html/highlight">Highlighted</a>
-{% include '@tapestry/partials/highlight.twig' with {content: template.render} %}
+    <h1>NEED TO MERGE VARIANTS HERE</h1>
 
-{% if metadata.notes %}
-{{ metadata.notes|markdown }}
-{% endif %}
+{% include '@tapestry/partials/detail.twig' with {template: template} %}
+
+{# {% for variant in pt.tapestry.markup.getVariantsOf(template) %}
+{% include '@tapestry/partials/detail.twig'  with {template: variant} %}
+{% endfor %} #}
 
 {% endblock %}

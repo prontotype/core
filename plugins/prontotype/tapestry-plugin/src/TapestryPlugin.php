@@ -22,7 +22,7 @@ class TapestryPlugin extends AbstractPlugin implements PluginInterface
         $this->container->make('prontotype.view.loader')->addPath(make_path($this->path, 'templates'), 'tapestry');
         
         $this->setRoutes();
-
+        
         $this->container->make('prontotype.events')->emit(Event::named('tapestry.register.end'));
     }
 
@@ -42,7 +42,7 @@ class TapestryPlugin extends AbstractPlugin implements PluginInterface
         $conf = $this->container->make('prontotype.config');
         $handler = $this->container->make('prontotype.http');
         $events = $this->container->make('prontotype.events');
-
+        
         $handler->get('/', 'Prontotype\Plugins\Tapestry\Controllers\TapestryController::index')
             ->name('tapestry.index');
 

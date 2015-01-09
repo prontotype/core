@@ -2,7 +2,13 @@
 
 use Amu\Ffs\SplFileInfo as AmuFileInfo;
 
-class SplFileInfo extends AmuFileInfo {
+class SplFileInfo extends AmuFileInfo
+{
+
+    public function getId()
+    {
+        return $this->getMetadataValue('id');
+    }
 
     public function metadataDoesNotExist($key)
     {
