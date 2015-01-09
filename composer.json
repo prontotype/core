@@ -20,7 +20,9 @@
     },
     "autoload": {
         "psr-4": {
-            "Prontotype\\": "app/"
+            "Prontotype\\": "app/",
+            "Prontotype\\Plugins\\Tapestry\\": "plugins/prontotype/tapestry-plugin/src"
+            
         },
         "files": [
             "helpers.php"

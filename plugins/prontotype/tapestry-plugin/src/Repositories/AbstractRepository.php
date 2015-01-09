@@ -1,4 +1,4 @@
-<?php namespace Prontotype\Tapestry\Repositories;
+<?php namespace Prontotype\Plugins\Tapestry\Repositories;
 
 use Prontotype\Config;
 

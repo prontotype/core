@@ -1,0 +1,15 @@
+{
+    "name": "prontotype/tapestry-plugin",
+    "type": "prontotype-plugin",
+    "require": {
+        "prontotype/composer-installer": "~0.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "Prontotype\\Plugins\\Tapestry\\": "src/"
+        }
+    },
+    "extra": {
+        "provider": "Prontotype\\Plugins\\Tapestry\\TapestryPlugin"
+    }
+}

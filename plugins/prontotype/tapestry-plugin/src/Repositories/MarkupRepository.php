@@ -1,7 +1,7 @@
-<?php namespace Prontotype\Tapestry\Repositories;
+<?php namespace Prontotype\Plugins\Tapestry\Repositories;
 
-use Prontotype\Tapestry\Filesystem\SplFileInfo;
-use Prontotype\Tapestry\Filesystem\Finder;
+use Prontotype\Plugins\Tapestry\Filesystem\SplFileInfo;
+use Prontotype\Plugins\Tapestry\Filesystem\Finder;
 
 class MarkupRepository extends AbstractRepository {
 

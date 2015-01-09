@@ -1,4 +1,4 @@
-<?php namespace Prontotype\Tapestry\Controllers;
+<?php namespace Prontotype\Plugins\Tapestry\Controllers;
 
 use Prontotype\Http\Request;
 use Prontotype\Exception\NotFoundException;

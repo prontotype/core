@@ -22,10 +22,12 @@ class HttpProvider implements ProviderInterface
 
         $events->addListener('plugins.loaded', function() use ($handler, $events) {
             $events->emit(Event::named('appRoutes.register.start'));
+
             $handler->get('/{templatePath}', 'Prontotype\Http\Controllers\DefaultController::catchall')
                 ->name('default')
                 ->value('templatePath', '/')
                 ->assert('templatePath', '[^:]+');
+
             $events->emit(Event::named('appRoutes.register.end'));
         });
         

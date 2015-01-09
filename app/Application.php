@@ -40,7 +40,6 @@ class Application {
         $this->register(new HttpProvider());
         $this->register(new ConsoleProvider());
         $this->register(new PluginProvider());
-        $this->register(new TapestryProvider());
         // $this->register(new TestProvider());
     }
 

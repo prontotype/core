@@ -34,9 +34,9 @@ class PluginProvider implements ProviderInterface
         $plugins = array();
         
         foreach (new DirectoryIterator($pluginDir) as $fileInfo) {
-            if ( ! $fileInfo->isDot() ) {
+            if ( $fileInfo->isDir() && ! $fileInfo->isDot() ) {
                 foreach (new DirectoryIterator($fileInfo->getPathname()) as $fileInfo) {
-                    if ( ! $fileInfo->isDot() ) {
+                    if ( $fileInfo->isDir() && ! $fileInfo->isDot() ) {
                         if ( file_exists(make_path($fileInfo->getPathname(), 'composer.json')) ) {
                             $composerConfig = json_decode(file_get_contents(make_path($fileInfo->getPathname(), 'composer.json')), true);
                             if ( isset($composerConfig['extra']['provider'])) {

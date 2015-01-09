@@ -1,4 +1,4 @@
-<?php namespace Prontotype\Tapestry\Filesystem;
+<?php namespace Prontotype\Plugins\Tapestry\Filesystem;
 
 use Prontotype\Filesystem\Finder as PTFinder;
 
