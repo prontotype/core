@@ -15,18 +15,18 @@ class SplFileInfo extends AmuFileInfo {
 
     public function isHidden()
     {
-        if ( $this->isDir() ) {
-            return false;
+        $segments = explode('/', $this->getRelativePathname());
+        foreach($segments as $segment) {
+            if ( strpos($segment, '_') === 0 ) {
+                return true;
+            }
         }
         return ($this->getMetadataValue('hidden') === true);
     }
 
     public function isNotHidden()
     {
-        if ( $this->isDir() ) {
-            return true;
-        }
-        return ($this->getMetadataValue('hidden') !== true);
+        return ! $this->isHidden();
     }
 
     public function getTitle()
@@ -42,4 +42,8 @@ class SplFileInfo extends AmuFileInfo {
         return parent::getRelativePathname();
     }
 
+    public function getUrlPath()
+    {
+        return preg_replace('/' . '.' . $this->getExtension() . '$/', '', $this->getRelativePathname());
+    }
 }

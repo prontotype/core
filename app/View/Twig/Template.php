@@ -20,43 +20,21 @@ abstract class Template extends Twig_Template
         return parent::render($context);
     }
 
-    public function isHidden()
-    {
-        if ( $this->file ) {
-            $segments = explode('/', $this->file->getRelativePathname());
-            foreach($segments as $segment) {
-                if ( strpos($segment, '_') === 0 ) {
-                    return true;
-                }
-            }
-            return $this->file->getMetadataValue('hidden');
-        }
-        return false;
-    }
-
     public function setFileObject(SplFileInfo $fileObj)
     {
         $this->file = $fileObj;
     }
 
-    public function getRelativePathname()
-    {
-        return $this->file->getRelativePathname();
-    }
-
-    public function getMetadata()
-    {
-        return $this->file->getMetadata();
-    }
-
-    public function getBody()
-    {
-        return $this->file->getBody();
-    }
-
     public function getFilename()
     {
         return $this->file->getBasename();
+    }
+
+    public function __call($name, $args)
+    {
+        if (method_exists($this->file, $name)) {
+            return call_user_func_array(array($this->file, $name), $args);
+        }
     }
 
 }

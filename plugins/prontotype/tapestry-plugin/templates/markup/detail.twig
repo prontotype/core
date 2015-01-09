@@ -1,9 +1,8 @@
 {% extends '@tapestry/layouts/sidebar.twig' %}
 
 {% block main %}
-
-
-<iframe src="/markup/{{ path }}.html/preview" frameborder="0"></iframe>
+{{ pt.tapestry.view.markupUrl(template.getUrlPath, 'preview') }}
+<iframe src="{{ pt.tapestry.view.markupUrl(template.getUrlPath, 'preview') }}" frameborder="0"></iframe>
 
 <a href="/markup/{{ path }}.html/highlight">Highlighted</a>
 {% include '@tapestry/partials/highlight.twig' with {content: template.render} %}
