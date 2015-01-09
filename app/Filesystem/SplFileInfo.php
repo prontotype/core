@@ -34,4 +34,12 @@ class SplFileInfo extends AmuFileInfo {
         return $this->getMetadataValue('title') ?: titlize($this->getBasenameWithoutExtension());
     }
 
+    public function getRelativePathname($search = null, $replace = null)
+    {
+        if ( $search && $replace ) {
+            return str_replace($search, $replace, parent::getRelativePathname());
+        }
+        return parent::getRelativePathname();
+    }
+
 }

@@ -20,6 +20,11 @@ abstract class BaseController {
     {
         $this->globals->add('request', $request);
     }
+    
+    public function notFound()
+    {
+        throw new NotFoundException('Page not found');
+    }
 
     protected function renderTemplate($templatePath, $params = array(), $attr = array())
     {   
@@ -52,11 +57,6 @@ abstract class BaseController {
         } catch (\Twig_Error_Loader $e) {
             $this->notFound();
         }
-    }
-
-    public function notFound()
-    {
-        throw new NotFoundException('Page not found');
     }
 
     protected function serveStatic($filePath, Request $request)

@@ -20,6 +20,7 @@ class ViewProvider implements ProviderInterface
         $container->share('Prontotype\View\Twig\Loader')->alias('prontotype.view.loader', 'Prontotype\View\Twig\Loader');
 
         $container->share('Prontotype\View\Globals')->alias('prontotype.view.globals', 'Prontotype\View\Globals');
+        $container->make('prontotype.view.globals')->add('config', $conf);
         
         $loader = $container->make('prontotype.view.loader');
 

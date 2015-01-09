@@ -72,7 +72,7 @@ class TapestryPlugin extends AbstractPlugin implements PluginInterface
         $handler->get('/markup/{path}.html/highlight', 'Prontotype\Plugins\Tapestry\Controllers\MarkupController::highlight')
             ->name('tapestry.markup.highlight')
             ->assert('path', '.+');
-
+        
         $handler->get('/markup/{path}.html', 'Prontotype\Plugins\Tapestry\Controllers\MarkupController::detail')
             ->name('tapestry.markup.detail')
             ->assert('path', '.+');

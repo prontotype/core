@@ -23,7 +23,6 @@ class TapestryController extends BaseController
 
     public function serveAsset($assetPath, Request $request)
     {
-
         $assetPath = make_path($this->config->get('tapestry.assetspath'), $assetPath);
         return $this->serveStatic($assetPath, $request);
     }
