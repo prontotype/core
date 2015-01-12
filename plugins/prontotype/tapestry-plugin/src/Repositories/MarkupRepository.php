@@ -39,7 +39,7 @@ class MarkupRepository extends AbstractRepository
     public function getVariantsOf($tpl)
     {
         $finder = new Finder($this->config->get('templates.directory'));
-        return $this->wrap($finder->notHidden()->isVariant()->extendsEquals($tpl->getId())->hasExtensionIfFile($this->config->get('templates.extension')));
+        return $this->wrap($finder->notHidden()->isVariant()->modifiesEquals($tpl->getId())->hasExtensionIfFile($this->config->get('templates.extension')));
     }
 
     protected function wrap($item)

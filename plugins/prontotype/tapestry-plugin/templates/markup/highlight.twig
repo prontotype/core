@@ -1,3 +1,15 @@
 {% extends '@tapestry/layouts/blank.twig' %}
 
-{% block main %}{% include '@tapestry/partials/highlight.twig' with {content: template.render()} %}{% endblock %}
+{% block main %}
+{% set mergedContent %}
+<!-- {{ template.getTitle() }} -->
+{{ template.render() }}
+
+{% for variant in pt.tapestry.markup.getVariantsOf(template) %}
+<!-- {{ variant.getTitle() }} -->
+{{ variant.render() }}
+
+{% endfor %}
+{% endset %}
+{% include '@tapestry/partials/highlight.twig' with {content: mergedContent} %}
+{% endblock %}

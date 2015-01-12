@@ -6,12 +6,12 @@ class Finder extends PTFinder {
 
     public function isVariant()
     {
-        return $this->metadataExists('extends');
+        return $this->metadataExists('modifies');
     }
 
     public function isNotVariant()
     {
-        return $this->metadataDoesNotExist('extends');
+        return $this->metadataDoesNotExist('modifies');
     }
 
     public function hasExtensionIfFile($ext)

@@ -22,4 +22,9 @@ class MarkupEntity {
         }
     }
 
+    public function getNotes()
+    {
+        return trim($this->file->getMetadataValue('notes'));
+    }
+
 }

@@ -3,6 +3,7 @@
 use Prontotype\Http\Request;
 use Prontotype\Exception\NotFoundException;
 use Prontotype\Http\Controllers\BaseController;
+use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 
 class MarkupController extends BaseController
 {    
@@ -42,7 +43,15 @@ class MarkupController extends BaseController
 
     public function download($path, Request $request)
     {
-        return $this->downloadTemplate($path);
+        $entity = $this->container->make('tapestry.repo.markup')->findEntity($path);
+        $response = $this->renderTemplate('@tapestry/markup/download.twig', [
+            "template" => $entity
+        ]);
+        $response->headers->set('Content-Disposition', $response->headers->makeDisposition(
+            ResponseHeaderBag::DISPOSITION_ATTACHMENT,
+            $entity->getFilename()
+        ));
+        return $response;
     }
 
 }
