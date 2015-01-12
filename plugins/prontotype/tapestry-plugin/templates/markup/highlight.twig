@@ -5,7 +5,7 @@
 <!-- {{ template.getTitle() }} -->
 {{ template.render() }}
 
-{% for variant in pt.tapestry.markup.getVariantsOf(template) %}
+{% for variant in variants %}
 <!-- {{ variant.getTitle() }} -->
 {{ variant.render() }}
 

@@ -2,8 +2,41 @@
 
 {% block main %}
 
-{% include '@tapestry/partials/detail.twig' with {
-    template: template
-} %}
+<ul>
+    <li><a href="{{ pt.tapestry.view.markupUrl(template.getUrlPath(), 'preview') }}">Preview</a></li>
+    <li><a href="{{ pt.tapestry.view.markupUrl(template.getUrlPath(), 'highlight') }}">Highlighted</a></li>
+    <li><a href="{{ pt.tapestry.view.markupUrl(template.getUrlPath(), 'raw') }}">Raw</a></li>
+    <li><a href="{{ pt.tapestry.view.markupUrl(template.getUrlPath(), 'download') }}">Download</a></li>
+</ul>
+
+<h2>Preview</h2>
+
+<iframe src="{{ pt.tapestry.view.markupUrl(template.getUrlPath(), 'preview') }}" frameborder="0"></iframe>
+
+{% set mergedContent %}
+<!-- {{ template.getTitle() }} -->
+{{ template.render() }}
+
+{% for variant in variants %}
+<!-- {{ variant.getTitle() }} -->
+{{ variant.render() }}
+
+{% endfor %}
+{% endset %}
+
+<h2>HTML</h2>
+{% include '@tapestry/partials/highlight.twig' with {content: mergedContent} %}
+
+{% set mergedNotes %}
+{{ template.getNotes() }}
+{% for variant in variants %}
+{{ variant.getNotes() }}
+{% endfor %}
+{% endset %}
+
+{% if mergedNotes|trim %}
+<h2>Notes</h2>
+{{ mergedNotes|markdown }}
+{% endif %}
 
 {% endblock %}

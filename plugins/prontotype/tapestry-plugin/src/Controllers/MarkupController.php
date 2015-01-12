@@ -9,49 +9,44 @@ class MarkupController extends BaseController
 {    
     public function detail($path, Request $request)
     {
-        $entity = $this->container->make('tapestry.repo.markup')->findEntity($path);
-        return $this->renderTemplate('@tapestry/markup/detail.twig', [
-            "template" => $entity
-        ]);
+        return $this->getResponse($path, 'detail');
     }
 
     public function preview($path, Request $request)
     {
-        $entity = $this->container->make('tapestry.repo.markup')->findEntity($path);
-        return $this->renderTemplate('@tapestry/markup/preview.twig', [
-            "template" => $entity
-        ]);
+        return $this->getResponse($path, 'preview');
     }
 
     public function highlight($path, Request $request)
     {
-        $entity = $this->container->make('tapestry.repo.markup')->findEntity($path);
-        return $this->renderTemplate('@tapestry/markup/highlight.twig', [
-            "template" => $entity
-        ]);
+        return $this->getResponse($path, 'highlight');
     }
 
     public function raw($path, Request $request)
     {
-        $entity = $this->container->make('tapestry.repo.markup')->findEntity($path);
-        return $this->renderTemplate('@tapestry/markup/raw.twig', [
-            "template" => $entity
-        ],[
+        return $this->getResponse($path, 'raw', [
             'Content-Type' => 'text/plain'
         ]);
     }
 
     public function download($path, Request $request)
     {
-        $entity = $this->container->make('tapestry.repo.markup')->findEntity($path);
-        $response = $this->renderTemplate('@tapestry/markup/download.twig', [
-            "template" => $entity
-        ]);
+        $response = $this->getResponse($path, 'download');
         $response->headers->set('Content-Disposition', $response->headers->makeDisposition(
             ResponseHeaderBag::DISPOSITION_ATTACHMENT,
             $entity->getFilename()
         ));
         return $response;
+    }
+
+    protected function getResponse($path, $tpl, $attr = array())
+    {
+        $repo = $this->container->make('tapestry.repo.markup');
+        $entity = $repo->findEntity($path);
+        return $this->renderTemplate('@tapestry/markup/' . $tpl . '.twig', [
+            "template" => $entity,
+            "variants" => $repo->getVariantsOf($entity)
+        ], $attr);
     }
 
 }
