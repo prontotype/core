@@ -25,9 +25,11 @@
     <ul>
     {% for item in items %}
         <li>
-            <a href="/markup/{{ item.getRelativePathname('.' ~ ext, '.html') }}">{{ item.getTitle() }}</a>
             {% if item.isDir() %}
+            <span>{{ item.getTitle() }}</span>
             {{ funcs.listDir(path, item.getRelativePathname(), (depth + 1), pt.tapestry.markup, ext) }}
+            {% else %}
+            <a href="/markup/{{ item.getRelativePathname('.' ~ ext, '.html') }}">{{ item.getTitle() }}</a>
             {% endif %}
         </li>
     {% endfor %}

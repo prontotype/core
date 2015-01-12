@@ -14,7 +14,8 @@
 <iframe src="{{ pt.tapestry.view.markupUrl(template.getUrlPath(), 'preview') }}" frameborder="0"></iframe>
 
 {% set mergedContent %}
-<!-- {{ template.getTitle() }} -->
+{% if variants|length %}<!-- {{ template.getTitle() }} -->
+{% endif %}
 {{ template.render() }}
 
 {% for variant in variants %}
