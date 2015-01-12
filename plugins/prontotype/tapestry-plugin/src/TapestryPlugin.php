@@ -16,6 +16,7 @@ class TapestryPlugin extends AbstractPlugin implements PluginInterface
         $this->container->make('prontotype.events')->emit(Event::named('tapestry.register.start'));
 
         $this->container->alias('tapestry.repo.markup', 'Prontotype\Plugins\Tapestry\Repositories\MarkupRepository')->share('tapestry.repo.markup');
+        $this->container->alias('tapestry.repo.docs', 'Prontotype\Plugins\Tapestry\Repositories\DocsRepository')->share('tapestry.repo.docs');
         $this->container->alias('tapestry.view', 'Prontotype\Plugins\Tapestry\ViewHelper')->share('tapestry.view');
 
         $this->container->make('prontotype.config')->set('tapestry.assetspath', make_path($this->path, 'assets'));
@@ -31,6 +32,7 @@ class TapestryPlugin extends AbstractPlugin implements PluginInterface
         return array(
             'tapestry' => array(
                 'markup' => $this->container->make('tapestry.repo.markup'),
+                'docs' => $this->container->make('tapestry.repo.docs'),
                 'view'   => $this->container->make('tapestry.view'),
                 'config' => $this->container->make('prontotype.config')->get('tapestry')
             )

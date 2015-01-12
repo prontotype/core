@@ -6,7 +6,11 @@
     {% block sidebar %}
     
     <div class="Sidebar-section">
-        {{ funcs.listDir('/', null, 0, pt.tapestry.markup, pt.config.get('templates.extension')) }}
+        {{ funcs.listMarkup('/', null, 0, 'markup', pt.tapestry.markup) }}
+    </div>
+
+    <div class="Sidebar-section">
+        {{ funcs.listMarkup('/', null, 0, 'docs', pt.tapestry.docs) }}
     </div>
     
     {% endblock %}
@@ -16,9 +20,9 @@
 </div>
 {% endblock %}
 
-{% macro listDir(path, relPath, depth, markup, ext) %}
+{% macro listMarkup(path, relPath, depth, type, repo) %}
     {% import _self as funcs %}
-    {% set items = markup.getAll(path, false).depth('== ' ~ depth) %}
+    {% set items = repo.getAll(path, false).depth('== ' ~ depth) %}
     {% if relPath %}
     {% set items = items.path('/^' ~ relPath|replace({'/':'\\/'}) ~ '/') %}
     {% endif %}
@@ -27,9 +31,9 @@
         <li>
             {% if item.isDir() %}
             <span>{{ item.getTitle() }}</span>
-            {{ funcs.listDir(path, item.getRelativePathname(), (depth + 1), pt.tapestry.markup, ext) }}
+            {{ funcs.listMarkup(path, item.getRelativePathname(), (depth + 1), type, repo) }}
             {% else %}
-            <a href="/markup/{{ item.getRelativePathname('.' ~ ext, '.html') }}">{{ item.getTitle() }}</a>
+            <a href="{{ pt.tapestry.view.generateUrl(type, item) }}">{{ item.getTitle() }}</a>
             {% endif %}
         </li>
     {% endfor %}

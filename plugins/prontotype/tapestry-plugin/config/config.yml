@@ -10,4 +10,6 @@ tapestry:
     
   docs:
     url: docs
+    directory: docs
+    extension: md
   

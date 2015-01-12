@@ -2,26 +2,19 @@
 
 use Prontotype\View\Twig\Environment;
 
-class MarkupEntity {
+class MarkupEntity extends AbstractEntity {
 
     public function __construct($file, Environment $twig)
     {
-        $this->file = $file;
         $this->twig = $twig;
+        parent:: __construct($file);
     }
 
     public function render()
     {
         return trim($this->twig->render($this->file->getRelativePathname()));
     }
-
-    public function __call($name, $args)
-    {
-        if (method_exists($this->file, $name)) {
-            return call_user_func_array(array($this->file, $name), $args);
-        }
-    }
-
+    
     public function getNotes()
     {
         return trim($this->file->getMetadataValue('notes'));

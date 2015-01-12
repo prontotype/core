@@ -37,7 +37,7 @@ class SplFileInfo extends AmuFileInfo
 
     public function getTitle()
     {
-        return $this->getMetadataValue('title') ?: titlize($this->getBasenameWithoutExtension());
+        return $this->getMetadataValue('title') ?: titlize(preg_replace('/^([\d]*\-)/', '', $this->getBasenameWithoutExtension()));
     }
 
     public function getRelativePathname($search = null, $replace = null)
