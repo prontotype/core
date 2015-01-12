@@ -1,5 +1,3 @@
 {% extends '@tapestry/layouts/blank.twig' %}
 
-{% block main %}
-{% include '@tapestry/partials/highlight.twig' with {content: template.render} %}
-{% endblock %}
+{% block main %}{% include '@tapestry/partials/highlight.twig' with {content: template.render()} %}{% endblock %}

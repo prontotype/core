@@ -18,7 +18,7 @@
 
 {% macro listDir(path, relPath, depth, markup, ext) %}
     {% import _self as funcs %}
-    {% set items = markup.getAll(path).depth('== ' ~ depth) %}
+    {% set items = markup.getAll(path, false).depth('== ' ~ depth) %}
     {% if relPath %}
     {% set items = items.path('/^' ~ relPath|replace({'/':'\\/'}) ~ '/') %}
     {% endif %}

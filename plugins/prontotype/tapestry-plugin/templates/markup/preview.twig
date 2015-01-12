@@ -1,6 +1,13 @@
-{% if metadata.preview %}
-{% include 'id:' ~ metadata.preview with {content: template.render|raw} %}
-{% else %}
-{{ template.render|raw }}
-{% endif %}
+{% set mergedContent %}
+{{ template.render() }}
 
+{% for variant in pt.tapestry.markup.getVariantsOf(template) %}
+{{ variant.render() }}
+
+{% endfor %}
+{% endset %}
+{% if template.getMetadata().preview %}
+{% include 'id:' ~ template.getMetadata().preview with {content: mergedContent|raw} %}
+{% else %}
+{{ mergedContent|raw }}
+{% endif %}

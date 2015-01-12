@@ -4,7 +4,9 @@
 
     <h1>NEED TO MERGE VARIANTS HERE</h1>
 
-{% include '@tapestry/partials/detail.twig' with {template: template} %}
+{% include '@tapestry/partials/detail.twig' with {
+    template: template
+} %}
 
 {# {% for variant in pt.tapestry.markup.getVariantsOf(template) %}
 {% include '@tapestry/partials/detail.twig'  with {template: variant} %}

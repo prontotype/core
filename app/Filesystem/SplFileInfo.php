@@ -52,4 +52,5 @@ class SplFileInfo extends AmuFileInfo
     {
         return preg_replace('/' . '.' . $this->getExtension() . '$/', '', $this->getRelativePathname());
     }
+
 }

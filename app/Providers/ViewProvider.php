@@ -4,6 +4,7 @@ use Twig_Environment;
 use Prontotype\Container;
 use Prontotype\View\Twig\Environment;
 use Prontotype\View\Twig\Loader as TemplateLoader;
+use Prontotype\View\Twig\StringLoader as StringLoader;
 use Prontotype\View\Twig\DataExtension;
 use Amu\Twig\TwigMarkdown\TwigMarkdownExtension;
 

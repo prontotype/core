@@ -1,1 +1,6 @@
-{{ template.render|raw }}
+{{ template.render()|raw }}
+
+{% for variant in pt.tapestry.markup.getVariantsOf(template) %}
+{{ variant.render()|raw }}
+
+{% endfor %}
