@@ -45,16 +45,20 @@ class Application {
 
     public function run()
     {
-        // register all services
-        foreach($this->providers as $provider) {
-            $provider->register($this->container);
-        }
-        // boot all services
-        foreach($this->providers as $provider) {
-            $provider->boot($this->container);
-        }
         // run the appropriate handler
         try {
+            // register all services
+            foreach($this->providers as $provider) {
+                $provider->register($this->container);
+            }
+            $this->container->make('prontotype.events')->emit(Event::named('services.register.end'));
+
+            // boot all services
+            foreach($this->providers as $provider) {
+                $provider->boot($this->container);
+            }
+            $this->container->make('prontotype.events')->emit(Event::named('services.boot.end'));
+
             $handler = $this->isRunningInConsole() ? $this->container->make('prontotype.console') : $this->container->make('prontotype.http');
             return $handler->run();
         } catch (\Exception $e) {
