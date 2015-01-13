@@ -1,0 +1,30 @@
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: sans-serif;
+}
+
+.Sidebar {
+  width: 30%;
+  float: left;
+  background-color: #eee;
+}
+
+.Main {
+  width: 70%;
+  float: right;
+}
+
+pre[class*="language-"] {
+  font-size: 14px;
+  line-height: 1.5;
+  margin: 0;
+  max-height: 490px;
+}
+pre[class*="language-"].full-height {
+  max-height: 1000000px;
+}

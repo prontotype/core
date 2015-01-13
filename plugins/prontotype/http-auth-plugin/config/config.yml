@@ -1,5 +1,0 @@
-httpauth:
-  realm: Example
-  type: digest
-  username: foo
-  password: bar

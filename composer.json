@@ -21,9 +21,7 @@
     "autoload": {
         "psr-4": {
             "Prontotype\\": "app/",
-            "Prontotype\\Plugins\\Tapestry\\": "plugins/prontotype/tapestry-plugin/src",
-            "Prontotype\\Plugins\\HttpAuth\\": "plugins/prontotype/http-auth-plugin/src"
-            
+            "Prontotype\\Plugins\\Tapestry\\": "plugins/prontotype/tapestry-plugin/src"
         },
         "files": [
             "helpers.php"

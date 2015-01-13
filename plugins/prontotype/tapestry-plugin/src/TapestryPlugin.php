@@ -16,7 +16,7 @@ class TapestryPlugin extends AbstractPlugin implements PluginInterface
         $this->container->make('prontotype.events')->emit(Event::named('tapestry.register.start'));
         $config = $this->container->make('prontotype.config');
 
-        $config->set('tapestry.assetspath', make_path($this->path, 'assets'));
+        $config->set('tapestry.assetspath', make_path($this->path, 'public'));
         $config->set('tapestry.tplpath', make_path($this->path, 'templates'));
 
         $config->set('tapestry.src.docs', make_path($config->get('prontotype.basepath'), $config->get('tapestry.docs.directory')));
