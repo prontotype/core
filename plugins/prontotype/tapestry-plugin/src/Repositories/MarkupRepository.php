@@ -12,8 +12,7 @@ class MarkupRepository extends AbstractRepository
     {
         try {
             $template = $this->twig->loadTemplate(array(
-                $templatePath,
-                // rtrim($templatePath,'/') . '/index'
+                $templatePath
             ));
             if ( ! $allowHidden && $template->isHidden() ) {
                 throw new NotFoundException();
@@ -26,20 +25,19 @@ class MarkupRepository extends AbstractRepository
 
     public function getAll($path = '/', $wrap = true)
     {
-        $path = make_path($this->config->get('templates.directory'), $path);
+        $path = make_path($this->config->get('tapestry.src.markup'), $path);
         $finder = new Finder($path);
-        $result = $finder->notHidden()->isNotVariant()->hasExtensionIfFile($this->config->get('templates.extension'));
+        $result = $finder->notHidden()->isNotVariant()->hasExtensionIfFile($this->config->get('tapestry.markup.extension'));
         if ($wrap) {
             return $this->wrap($result);   
         }
         return $result;
-
     }
 
-    public function getVariantsOf($tpl)
+    public function getModifiersOf($tpl)
     {
-        $finder = new Finder($this->config->get('templates.directory'));
-        return $this->wrap($finder->notHidden()->isVariant()->modifiesEquals($tpl->getId())->hasExtensionIfFile($this->config->get('templates.extension')));
+        $finder = new Finder($this->config->get('tapestry.src.markup'));
+        return $this->wrap($finder->notHidden()->isVariant()->modifiesEquals($tpl->getId())->hasExtensionIfFile($this->config->get('tapestry.markup.extension')));
     }
 
     protected function wrap($item)

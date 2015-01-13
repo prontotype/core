@@ -21,7 +21,8 @@ class TapestryPlugin extends AbstractPlugin implements PluginInterface
 
         $config->set('tapestry.src.docs', make_path($config->get('prontotype.basepath'), $config->get('tapestry.docs.directory')));
         $config->set('tapestry.src.markup', $config->get('tapestry.markup.directory') ? make_path($config->get('prontotype.basepath'), $config->get('tapestry.markup.directory')) : $config->get('templates.directory'));
-
+        $config->set('tapestry.markup.extension', $config->get('tapestry.markup.extension', $config->get('templates.extension')));
+        
         $this->container->alias('tapestry.repo.markup', 'Prontotype\Plugins\Tapestry\Repositories\MarkupRepository')->share('tapestry.repo.markup');   
         $this->container->alias('tapestry.repo.docs', 'Prontotype\Plugins\Tapestry\Repositories\DocsRepository')->share('tapestry.repo.docs');
         $this->container->alias('tapestry.view', 'Prontotype\Plugins\Tapestry\ViewHelper')->share('tapestry.view');

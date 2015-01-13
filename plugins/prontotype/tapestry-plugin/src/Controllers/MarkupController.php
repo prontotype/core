@@ -45,7 +45,7 @@ class MarkupController extends BaseController
         $entity = $repo->findEntity($path);
         return $this->renderTemplate('@tapestry/markup/' . $tpl . '.twig', [
             "template" => $entity,
-            "variants" => $repo->getVariantsOf($entity)
+            "modifiers" => $repo->getModifiersOf($entity)
         ], $attr);
     }
 

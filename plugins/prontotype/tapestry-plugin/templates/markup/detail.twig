@@ -14,11 +14,11 @@
 <iframe src="{{ pt.tapestry.view.markupUrl(template.getUrlPath(), 'preview') }}" frameborder="0"></iframe>
 
 {% set mergedContent %}
-{% if variants|length %}<!-- {{ template.getTitle() }} -->
+{% if modifiers|length %}<!-- {{ template.getTitle() }} -->
 {% endif %}
 {{ template.render() }}
 
-{% for variant in variants %}
+{% for variant in modifiers %}
 <!-- {{ variant.getTitle() }} -->
 {{ variant.render() }}
 
@@ -30,7 +30,7 @@
 
 {% set mergedNotes %}
 {{ template.getNotes() }}
-{% for variant in variants %}
+{% for variant in modifiers %}
 {{ variant.getNotes() }}
 {% endfor %}
 {% endset %}
