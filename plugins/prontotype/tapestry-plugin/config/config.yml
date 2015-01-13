@@ -6,7 +6,7 @@ tapestry:
 
   assets:
     url: assets
-    
+    directory: assets
     
   docs:
     url: docs

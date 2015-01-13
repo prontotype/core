@@ -31,7 +31,7 @@ class ViewProvider implements ProviderInterface
         $twig = new Environment($loader, array(
             'strict_variables'  => false,
             'base_template_class' => 'Prontotype\View\Twig\Template',
-            'debug' => true,
+            'debug'             => true,
             'cache'             => $cache,
             'auto_reload'       => $cacheAutoReload,
             'autoescape'        => false

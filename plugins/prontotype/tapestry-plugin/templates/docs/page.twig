@@ -1,0 +1,9 @@
+{% extends '@tapestry/layouts/sidebar.twig' %}
+
+{% block main %}
+
+<div class="Text">
+{{ page.getBody()|markdown }}    
+</div>
+
+{% endblock %}

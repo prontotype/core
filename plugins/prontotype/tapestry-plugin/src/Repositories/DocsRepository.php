@@ -3,17 +3,36 @@
 use Prontotype\Plugins\Tapestry\Filesystem\SplFileInfo;
 use Prontotype\Plugins\Tapestry\Filesystem\Finder;
 use Prontotype\Plugins\Tapestry\Entities\DocsEntity;
+use Prontotype\Exception\NotFoundException;
 
 class DocsRepository extends AbstractRepository
 {
-    public function findEntity($path, $allowHidden = false)
+    public function findIndexEntity()
     {
-        
+        $finder = $this->getAll('/', false);
+        $result = $finder->indexEquals(true);
+        // $result = $finder->pathname($path . '.' . $this->config->get('tapestry.docs.extension'));
+        if ( $result->count()) {
+            return $this->wrap($result->first());    
+        }
+        throw new NotFoundException('The documentation page could not be found.');
+    }
+
+    public function findEntity($path)
+    {
+        $finder = $this->getAll('/', false);
+        $result = $finder->pathname($path . '.' . $this->config->get('tapestry.docs.extension'));
+        if ( $result->count()) {
+            return $this->wrap($result->first());    
+        }
+        throw new NotFoundException('The documentation page could not be found.');
     }
 
     public function getAll($path = '/', $wrap = true)
     {
-        $path = make_path($this->config->get('prontotype.basepath'), $this->config->get('tapestry.docs.directory'), $path);
+        if ( ! $path = $this->getPath($path) ) {
+            return null;
+        }
         $finder = new Finder($path);
         $result = $finder->notHidden()->hasExtensionIfFile($this->config->get('tapestry.docs.extension'));
         if ($wrap) {
@@ -35,6 +54,15 @@ class DocsRepository extends AbstractRepository
             return new DocsEntity($item, $this->twig);
         }
         return $item;
+    }
+
+    protected function getPath($path)
+    {
+        $path = make_path($this->config->get('prontotype.basepath'), $this->config->get('tapestry.docs.directory'), $path);
+        if (!file_exists($path)) {
+            return null;
+        }
+        return $path;
     }
 
 }

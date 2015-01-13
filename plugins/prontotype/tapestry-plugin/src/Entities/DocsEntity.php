@@ -2,7 +2,7 @@
 
 use Prontotype\View\Twig\Environment;
 
-class DocEntity extends AbstractEntity {
+class DocsEntity extends AbstractEntity {
 
     public function render()
     {

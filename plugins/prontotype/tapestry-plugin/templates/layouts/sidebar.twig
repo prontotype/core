@@ -1,17 +1,23 @@
 {% extends '@tapestry/layouts/skeleton.twig' %}
-{% import _self as funcs %}
+{% import '@tapestry/partials/macros.twig' as macros %}
 
 {% block body %}
 <div class="Sidebar">
     {% block sidebar %}
     
+    {% if pt.tapestry.has.markup %}
     <div class="Sidebar-section">
-        {{ funcs.listMarkup('/', null, 0, 'markup', pt.tapestry.markup) }}
+        <h2>Markup</h2>
+        {{ macros.listDir('/', null, 0, 'markup', pt.tapestry.markup) }}
     </div>
+    {% endif %}
 
+    {% if pt.tapestry.has.docs %}
     <div class="Sidebar-section">
-        {{ funcs.listMarkup('/', null, 0, 'docs', pt.tapestry.docs) }}
+        <h2>Docs</h2>
+        {{ macros.listDir('/', null, 0, 'docs', pt.tapestry.docs) }}
     </div>
+    {% endif %}
     
     {% endblock %}
 </div>
@@ -20,22 +26,3 @@
 </div>
 {% endblock %}
 
-{% macro listMarkup(path, relPath, depth, type, repo) %}
-    {% import _self as funcs %}
-    {% set items = repo.getAll(path, false).depth('== ' ~ depth) %}
-    {% if relPath %}
-    {% set items = items.path('/^' ~ relPath|replace({'/':'\\/'}) ~ '/') %}
-    {% endif %}
-    <ul>
-    {% for item in items %}
-        <li>
-            {% if item.isDir() %}
-            <span>{{ item.getTitle() }}</span>
-            {{ funcs.listMarkup(path, item.getRelativePathname(), (depth + 1), type, repo) }}
-            {% else %}
-            <a href="{{ pt.tapestry.view.generateUrl(type, item) }}">{{ item.getTitle() }}</a>
-            {% endif %}
-        </li>
-    {% endfor %}
-    </ul>
-{% endmacro %}

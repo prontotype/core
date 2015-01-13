@@ -1,0 +1,19 @@
+{% macro listDir(path, relPath, depth, type, repo) %}
+    {% import '@tapestry/partials/macros.twig' as macros %}
+    {% set items = repo.getAll(path, false).depth('== ' ~ depth) %}
+    {% if relPath %}
+    {% set items = items.path('/^' ~ relPath|replace({'/':'\\/'}) ~ '/') %}
+    {% endif %}
+    <ul>
+    {% for item in items %}
+        <li>
+            {% if item.isDir() %}
+            <span>{{ item.getTitle() }}</span>
+            {{ macros.listDir(path, item.getRelativePathname(), (depth + 1), type, repo) }}
+            {% else %}
+            <a href="{{ pt.tapestry.view.generateUrl(type, item) }}">{{ item.getTitle() }}</a>
+            {% endif %}
+        </li>
+    {% endfor %}
+    </ul>
+{% endmacro %}
