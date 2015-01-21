@@ -2,27 +2,41 @@
 {% import '@tapestry/partials/macros.twig' as macros %}
 
 {% block body %}
-<div class="Sidebar">
-    {% block sidebar %}
-    
-    {% if pt.tapestry.has.markup %}
-    <div class="Sidebar-section">
-        <h2>Markup</h2>
-        {{ macros.listDir('/', null, 0, 'markup', pt.tapestry.markup) }}
+<div class="SiteWrapper">
+    <div class="SiteHeader">
+        <a class="SiteHeader-title" href="/">{{ pt.tapestry.config.title|default('Frontend Deliverables') }}</a>
+        <ul class="SiteHeader-nav">
+            <li><a href="/">Overview</a></li>
+        </ul>
     </div>
-    {% endif %}
+    <div class="SiteBody">
+        <div class="Sidebar">
+            {% block sidebar %}
+            
+            {% if pt.tapestry.has.markup %}
+            <div class="Sidebar-section">
+                <h2 class="Sidebar-sectionTitle">Markup</h2>
+                <div class="TreeNav">
+                    {{ macros.treeNav('/', null, 0, 'markup', pt.tapestry.markup) }}    
+                </div>
+            </div>
+            {% endif %}
 
-    {% if pt.tapestry.has.docs %}
-    <div class="Sidebar-section">
-        <h2>Docs</h2>
-        {{ macros.listDir('/', null, 0, 'docs', pt.tapestry.docs) }}
+            {% if pt.tapestry.has.docs %}
+            <div class="Sidebar-section">
+                <h2 class="Sidebar-sectionTitle">Documentation</h2>
+                <div class="TreeNav TreeNav--collapsible">
+                    {{ macros.treeNav('/', null, 0, 'docs', pt.tapestry.docs) }}
+                </div>
+            </div>
+            {% endif %}
+            
+            {% endblock %}
+        </div>
+        <div class="Main">
+            {% block main %}{% endblock %}
+        </div>
     </div>
-    {% endif %}
-    
-    {% endblock %}
-</div>
-<div class="Main">
-    {% block main %}{% endblock %}
 </div>
 {% endblock %}
 

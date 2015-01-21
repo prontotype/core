@@ -1,17 +1,17 @@
-{% macro listDir(path, relPath, depth, type, repo) %}
+{% macro treeNav(path, relPath, depth, type, repo) %}
     {% import '@tapestry/partials/macros.twig' as macros %}
     {% set items = repo.getAll(path, false).depth('== ' ~ depth) %}
     {% if relPath %}
     {% set items = items.path('/^' ~ relPath|replace({'/':'\\/'}) ~ '/') %}
     {% endif %}
-    <ul>
+    <ul class="TreeNav-list TreeNav-level{{ depth }}">
     {% for item in items %}
-        <li>
+        <li class="TreeNav-item{% if item.isDir() %} TreeNav-directoryItem{% else %} TreeNav-linkItem{% endif %}">
             {% if item.isDir() %}
-            <span>{{ item.getTitle() }}</span>
-            {{ macros.listDir(path, item.getRelativePathname(), (depth + 1), type, repo) }}
+            <span class="TreeNav-title TreeNav-directoryTitle">{{ item.getTitle() }}</span>
+            {{ macros.treeNav(path, item.getRelativePathname(), (depth + 1), type, repo) }}
             {% else %}
-            <a href="{{ pt.tapestry.view.generateUrl(type, item) }}">{{ item.getTitle() }}</a>
+            <a class="TreeNav-title TreeNav-linkTitle" href="{{ pt.tapestry.view.generateUrl(type, item) }}">{{ item.getTitle() }}</a>
             {% endif %}
         </li>
     {% endfor %}

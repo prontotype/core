@@ -1,0 +1,38 @@
+.TreeNav {
+    ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+    li ul {
+        margin-left: 16px;
+    }
+    ul ul {
+        margin-bottom: 5px;
+    }
+}
+.TreeNav-title {
+    display: inline-block;
+    padding: 3px 0;
+}
+.TreeNav-directoryTitle {
+    color: #444;
+    &:before {
+        font-family: FontAwesome;
+        content: "\f0d7";
+        font-size: 16px;
+        color: #000;
+        display: inline-block;
+        margin-right: 6px;
+    }
+}
+.TreeNav-linkTitle {
+    &:before {
+        content: "•";
+        font-size: 16px;
+        color: #999;
+        display: inline-block;
+        margin-right: 7px;
+        margin-left: 2px;
+    }
+}

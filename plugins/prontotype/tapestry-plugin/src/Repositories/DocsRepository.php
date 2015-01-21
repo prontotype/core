@@ -11,7 +11,6 @@ class DocsRepository extends AbstractRepository
     {
         $finder = $this->getAll('/', false);
         $result = $finder->indexEquals(true);
-        // $result = $finder->pathname($path . '.' . $this->config->get('tapestry.docs.extension'));
         if ( $result->count()) {
             return $this->wrap($result->first());    
         }

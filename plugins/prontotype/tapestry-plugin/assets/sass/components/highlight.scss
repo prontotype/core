@@ -1,9 +1,14 @@
 pre[class*="language-"] {
-    font-size: 14px;
-    line-height: 1.5;
     margin: 0;
-    max-height: 490px;
-    &.full-height {
-        max-height: 1000000px;
-    }
+    // max-height: 490px;
+    // &.full-height {
+    //     max-height: 1000000px;
+    // }
+}
+
+code[class*="language-"],
+pre[class*="language-"] {
+    font-size: 16px;
+    line-height: 1.5;
+    font-family: 'Inconsolata', Consolas, Monaco, 'Andale Mono', monospace;
 }

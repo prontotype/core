@@ -1,5 +1,7 @@
 {% extends '@tapestry/layouts/blank.twig' %}
 
+{% set htmlModifier = 'highlight' %}
+
 {% block main %}
 {% set mergedContent %}
 <!-- {{ template.getTitle() }} -->
@@ -11,5 +13,10 @@
 
 {% endfor %}
 {% endset %}
-{% include '@tapestry/partials/highlight.twig' with {content: mergedContent} %}
+{% include '@tapestry/partials/highlight.twig' with {
+    'content': mergedContent,
+    'numbers': true,
+    'lines': pt.request.query.get('lines'),
+    'fullheight': true
+} only %}
 {% endblock %}

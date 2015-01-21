@@ -24,6 +24,7 @@ module.exports = function(grunt) {
                 files: {
                     'public/js/tapestry.js': [
                         'assets/js/vendor/jquery.js',
+                        'assets/js/vendor/prism.js',
                         'assets/js/main.js'
                     ]
                 }

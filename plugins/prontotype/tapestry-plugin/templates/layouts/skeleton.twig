@@ -1,7 +1,22 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="Html{% if htmlModifier %}--{{ htmlModifier }}{% endif %}">
 <head>
     <meta charset="UTF-8">
+    <script type="text/javascript">
+        WebFontConfig = {
+            google: { families: [ 'Open+Sans:600,400:latin', 'Inconsolata:400,700:latin' ] }
+        };
+        (function() {
+            var wf = document.createElement('script');
+            wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+            '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+            wf.type = 'text/javascript';
+            wf.async = 'true';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(wf, s);
+        })();
+    </script>
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/__tapestry/assets/css/tapestry.css">
     <title>{{ pt.tapestry.config.title }}</title>
 </head>

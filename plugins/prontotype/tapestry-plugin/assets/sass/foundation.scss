@@ -4,17 +4,43 @@
     box-sizing: border-box;    
 }
 
-body {
+body,
+html {
     font-family: sans-serif;
+    height: 100%;
+    width: 100%;
+    padding: 0;
+    position: relative;
+    font-family: 'Open Sans', Helvetica, Arial, sans-serif;
+    min-width: 780px;
 }
 
-.Sidebar {
-    width: 30%;
-    float: left;
-    background-color: #eee;
+a {
+    color: #2671b7;
+    text-decoration: none;
+    &:hover {
+        text-decoration: underline;
+    }
 }
 
-.Main {
-    width: 70%;
-    float: right;
+iframe {
+    width: 100%;
+    height: 1px;
+}
+
+.SiteWrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow-y: hidden;
+}
+
+.SiteBody {
+    position: absolute;
+    top: 2.5em;
+    left: 0;
+    right: 0;
+    bottom: 0;
 }

@@ -1,14 +1,22 @@
 <?php namespace Prontotype\Plugins\Tapestry\Controllers;
 
 use Prontotype\Http\Request;
-use Prontotype\Exception\NotFoundException;
 use Prontotype\Http\Controllers\BaseController;
+use Prontotype\Exception\NotFoundException;
 
 class TapestryController extends BaseController
 {    
     public function index(Request $request)
     {
-        return $this->renderTemplate('@tapestry/index.twig');
+        $repo = $this->container->make('tapestry.repo.docs');
+        try {
+            $index = $repo->findIndexEntity();
+        } catch( NotFoundException $e) {
+            $index = null;
+        }
+        return $this->renderTemplate('@tapestry/index.twig', [
+            "page" => $index
+        ]);
     }
 
     public function markupIndex()

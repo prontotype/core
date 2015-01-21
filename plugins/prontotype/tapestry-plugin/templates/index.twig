@@ -2,7 +2,16 @@
 
 {% block main %}
 
-Tapestry plugin installed
+{% if page %}
+{% include '@tapestry/partials/text.twig' with {content: page.getBody()|markdown} %}
+{% else %}
+{% set text %}
+# Welcome to your Frontend Deliverables area.
+
+The available components and assets can be selected in the menu on the left.
+{% endset %}
+{% include '@tapestry/partials/text.twig' with {content: text|markdown} %}
+{% endif %}
 
 {% endblock %}
 

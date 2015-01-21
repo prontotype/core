@@ -1,0 +1,26 @@
+.Sidebar {
+    background: #F7F7F7;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 280px;
+    overflow: auto;
+    padding: 20px 20px 20px 20px;
+    border-right: 1px solid #ddd;
+}
+
+.Sidebar-section {
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+    &:last-child {
+        border-bottom: 0;
+    }
+}
+
+.Sidebar-sectionTitle {
+    font-size: 16px;
+    font-weight: bold;
+    margin: 0 0 15px 0;
+}

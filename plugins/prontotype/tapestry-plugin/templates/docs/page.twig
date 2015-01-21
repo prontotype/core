@@ -2,8 +2,6 @@
 
 {% block main %}
 
-<div class="Text">
-{{ page.getBody()|markdown }}    
-</div>
+{% include '@tapestry/partials/text.twig', {content: page.getBody()|markdown} %}
 
 {% endblock %}

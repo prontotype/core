@@ -1,4 +1,12 @@
+@import 'vendor/normalize.scss';
+@import 'vendor/prism.scss';
+
 @import 'foundation.scss';
 
 @import 'components/highlight.scss';
-
+@import 'components/html.scss';
+@import 'components/main.scss';
+@import 'components/markup-detail.scss';
+@import 'components/site-header.scss';
+@import 'components/sidebar.scss';
+@import 'components/tree-nav.scss';

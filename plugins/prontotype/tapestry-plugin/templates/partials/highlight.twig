@@ -1,5 +1,4 @@
 <div class="Highlight">
-<pre>
-{{ content|escape }}
-</pre>
+<pre class="language-{{ language|default('markup') }}{% if numbers %} line-numbers{% endif %}{% if fullheight %} full-height{% endif %}"{% if lines %} data-line="{{ lines }}"{% endif %}><code>{{ content|escape|trim }}</code></pre>
 </div>
+

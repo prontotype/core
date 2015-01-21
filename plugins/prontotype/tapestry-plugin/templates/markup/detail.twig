@@ -2,16 +2,33 @@
 
 {% block main %}
 
-<ul>
-    <li><a href="{{ pt.tapestry.view.markupUrl(template.getUrlPath(), 'preview') }}">Preview</a></li>
-    <li><a href="{{ pt.tapestry.view.markupUrl(template.getUrlPath(), 'highlight') }}">Highlighted</a></li>
-    <li><a href="{{ pt.tapestry.view.markupUrl(template.getUrlPath(), 'raw') }}">Raw</a></li>
-    <li><a href="{{ pt.tapestry.view.markupUrl(template.getUrlPath(), 'download') }}">Download</a></li>
-</ul>
+<div class="MarkupDetail">
 
-<h2>Preview</h2>
+    <div class="MarkupDetail-header">
+        
+        <h1 class="MarkupDetail-title">{{ template.getTitle() }}</h1>
+        <ul class="MarkupDetail-links">
+            <li class="MarkupDetail-linkItem">
+                <a class="MarkupDetail-link" href="{{ pt.tapestry.view.markupUrl(template.getUrlPath(), 'preview') }}">Preview</a>
+            </li>
+            <li class="MarkupDetail-linkItem">
+                <a class="MarkupDetail-link" href="{{ pt.tapestry.view.markupUrl(template.getUrlPath(), 'highlight') }}">Highlighted</a>
+            </li>
+            <li class="MarkupDetail-linkItem">
+                <a class="MarkupDetail-link" href="{{ pt.tapestry.view.markupUrl(template.getUrlPath(), 'raw') }}">Raw</a>
+            </li>
+            <li class="MarkupDetail-linkItem">
+                <a class="MarkupDetail-link" href="{{ pt.tapestry.view.markupUrl(template.getUrlPath(), 'download') }}">Download</a>
+            </li>
+        </ul>
 
-<iframe src="{{ pt.tapestry.view.markupUrl(template.getUrlPath(), 'preview') }}" frameborder="0"></iframe>
+    </div>
+
+    <div class="MarkupDetail-section">
+
+        <h2 class="MarkupDetail-sectionHeader">Preview</h2>
+
+        <iframe src="{{ pt.tapestry.view.markupUrl(template.getUrlPath(), 'preview') }}" frameborder="0"></iframe>
 
 {% set mergedContent %}
 {% if modifiers|length %}<!-- {{ template.getTitle() }} -->
@@ -24,20 +41,32 @@
 
 {% endfor %}
 {% endset %}
+        
+    </div>
 
-<h2>HTML</h2>
-{% include '@tapestry/partials/highlight.twig' with {content: mergedContent} %}
+    <div class="MarkupDetail-section">
 
-{% set mergedNotes %}
-{{ template.getNotes() }}
-{% for variant in modifiers %}
-{{ variant.getNotes() }}
-{% endfor %}
-{% endset %}
+        <h2 class="MarkupDetail-sectionHeader">HTML</h2>
+        {% include '@tapestry/partials/highlight.twig' with {
+            'content': mergedContent,
+            'numbers': false,
+            'lines': false,
+        } only %}
 
-{% if mergedNotes|trim %}
-<h2>Notes</h2>
-{{ mergedNotes|markdown }}
-{% endif %}
+        {% set mergedNotes %}
+        {{ template.getNotes() }}
+        {% for variant in modifiers %}
+        {{ variant.getNotes() }}
+        {% endfor %}
+        {% endset %}
+
+        {% if mergedNotes|trim %}
+        <h2>Notes</h2>
+        {{ mergedNotes|markdown }}
+    {% endif %}
+
+    </div>
+
+</div>
 
 {% endblock %}
