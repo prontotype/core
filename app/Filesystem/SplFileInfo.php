@@ -4,6 +4,23 @@ use Amu\Ffs\SplFileInfo as AmuFileInfo;
 
 class SplFileInfo extends AmuFileInfo
 {
+    protected $parse = ['html','twig','md','markdown'];
+
+    public function getMetadata()
+    {
+        if (in_array(strtolower($this->getExtension()), $this->parse)) {
+            return parent::getMetadata();
+        }
+        return null;
+    }
+
+    public function getBody()
+    {
+        if (in_array(strtolower($this->getExtension()), $this->parse)) {
+            return parent::getBody();
+        }
+        return null;
+    }
 
     public function getId()
     {

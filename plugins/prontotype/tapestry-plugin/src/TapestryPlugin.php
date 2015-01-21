@@ -25,6 +25,7 @@ class TapestryPlugin extends AbstractPlugin implements PluginInterface
         
         $this->container->alias('tapestry.repo.markup', 'Prontotype\Plugins\Tapestry\Repositories\MarkupRepository')->share('tapestry.repo.markup');   
         $this->container->alias('tapestry.repo.docs', 'Prontotype\Plugins\Tapestry\Repositories\DocsRepository')->share('tapestry.repo.docs');
+        $this->container->alias('tapestry.repo.resources', 'Prontotype\Plugins\Tapestry\Repositories\ResourcesRepository')->share('tapestry.repo.resources');
         $this->container->alias('tapestry.view', 'Prontotype\Plugins\Tapestry\ViewHelper')->share('tapestry.view');
 
         $this->container->make('prontotype.view.loader')->addPath($config->get('tapestry.tplpath'), 'tapestry');
@@ -42,6 +43,7 @@ class TapestryPlugin extends AbstractPlugin implements PluginInterface
             'tapestry' => array(
                 'markup' => $this->container->make('tapestry.repo.markup'),
                 'docs' => $this->container->make('tapestry.repo.docs'),
+                'resources' => $this->container->make('tapestry.repo.resources'),
                 'view'   => $this->container->make('tapestry.view'),
                 'config' => $this->container->make('prontotype.config')->get('tapestry'),
                 'has' => array(
@@ -93,11 +95,16 @@ class TapestryPlugin extends AbstractPlugin implements PluginInterface
 
         // assets
                 
-        $assetsUrl = '/' . $config->get('tapestry.assets.url');
-        
-        $handler->get($assetsUrl, 'Prontotype\Plugins\Tapestry\Controllers\TapestryController::assetsIndex')
-            ->name('tapestry.assets.index');
+        $assetsUrl = '/' . $config->get('tapestry.resources.url');
 
+        $handler->get($assetsUrl, 'Prontotype\Plugins\Tapestry\Controllers\TapestryController::resourcesIndex')
+                ->name('tapestry.resources.index');
+        
+        $handler->get($assetsUrl . '/{path}', 'Prontotype\Plugins\Tapestry\Controllers\ResourcesController::detail')
+            ->name('tapestry.resource.detail')
+            ->assert('path', '.+');   
+
+        // docs
 
         if ( file_exists($config->get('tapestry.src.docs')) ) {
         

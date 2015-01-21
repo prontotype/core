@@ -4,9 +4,14 @@ tapestry:
   markup:
     url: markup
 
-  assets:
-    url: assets
-    
+  resources:
+    url: resources
+    groups:
+      assets:
+        title: 'SCSS'
+        directory: /assets/css
+        filter: 
+
   docs:
     url: docs
     directory: docs

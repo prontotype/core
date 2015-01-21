@@ -24,7 +24,7 @@ class TapestryController extends BaseController
         return $this->notFound(); // temp
     }
 
-    public function assetsIndex()
+    public function resourcesIndex()
     {
         return $this->notFound();  // temp
     }
