@@ -5,34 +5,42 @@
         padding: 0;
     }
     li ul {
-        margin-left: 16px;
+        margin-left: 12px;
     }
     ul ul {
-        margin-bottom: 5px;
+        // margin-bottom: 5px;
     }
 }
 .TreeNav-title {
-    display: inline-block;
-    padding: 3px 0;
+    display: block;
+    padding: 4px 0;
+    overflow: hidden;
+    font-size: 15px;
+    white-space: nowrap;
+    word-wrap: normal;
+    overflow-wrap: normal;
+    text-overflow: ellipsis;
 }
 .TreeNav-directoryTitle {
-    color: #444;
+    color: #666;
     &:before {
         font-family: FontAwesome;
         content: "\f0d7";
         font-size: 16px;
-        color: #000;
+        color: #333;
         display: inline-block;
         margin-right: 6px;
     }
 }
 .TreeNav-linkTitle {
-    &:before {
-        content: "•";
-        font-size: 16px;
-        color: #999;
-        display: inline-block;
-        margin-right: 7px;
-        margin-left: 2px;
-    }
+    padding-left: 4px;
+    // &:before {
+    //     content: "•";
+    //     font-size: 16px;
+    //     color: #999;
+    //     display: inline-block;
+    //     margin-right: 7px;
+    //     margin-left: 2px;
+    //     display: none;
+    // }
 }

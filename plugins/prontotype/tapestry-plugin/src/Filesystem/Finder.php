@@ -4,6 +4,8 @@ use Prontotype\Filesystem\Finder as PTFinder;
 
 class Finder extends PTFinder {
 
+    protected $iteratorClass = 'Prontotype\Plugins\Tapestry\Filesystem\RecursiveDirectoryIterator';
+
     public function isVariant()
     {
         return $this->metadataExists('modifies');

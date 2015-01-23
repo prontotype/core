@@ -19,7 +19,7 @@ class SplFileInfo extends AmuFileInfo
         if (in_array(strtolower($this->getExtension()), $this->parse)) {
             return parent::getBody();
         }
-        return null;
+        return parent::getContents();
     }
 
     public function getId()

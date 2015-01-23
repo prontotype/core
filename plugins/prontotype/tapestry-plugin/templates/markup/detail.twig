@@ -2,31 +2,31 @@
 
 {% block main %}
 
-<div class="MarkupDetail">
+<div class="Detail">
 
-    <div class="MarkupDetail-header">
+    <div class="Detail-header">
         
-        <h1 class="MarkupDetail-title">{{ template.getTitle() }}</h1>
-        <ul class="MarkupDetail-links">
-            <li class="MarkupDetail-linkItem">
-                <a class="MarkupDetail-link" href="{{ pt.tapestry.view.markupUrl(template.getUrlPath(), 'preview') }}">Preview</a>
+        <h1 class="Detail-title">{{ template.getTitle() }}</h1>
+        <ul class="Detail-links">
+            <li class="Detail-linkItem">
+                <a class="Detail-link" href="{{ pt.tapestry.view.markupUrl(template.getUrlPath(), 'preview') }}">Preview</a>
             </li>
-            <li class="MarkupDetail-linkItem">
-                <a class="MarkupDetail-link" href="{{ pt.tapestry.view.markupUrl(template.getUrlPath(), 'highlight') }}">Highlighted</a>
+            <li class="Detail-linkItem">
+                <a class="Detail-link" href="{{ pt.tapestry.view.markupUrl(template.getUrlPath(), 'highlight') }}">Highlighted</a>
             </li>
-            <li class="MarkupDetail-linkItem">
-                <a class="MarkupDetail-link" href="{{ pt.tapestry.view.markupUrl(template.getUrlPath(), 'raw') }}">Raw</a>
+            <li class="Detail-linkItem">
+                <a class="Detail-link" href="{{ pt.tapestry.view.markupUrl(template.getUrlPath(), 'raw') }}">Raw</a>
             </li>
-            <li class="MarkupDetail-linkItem">
-                <a class="MarkupDetail-link" href="{{ pt.tapestry.view.markupUrl(template.getUrlPath(), 'download') }}">Download</a>
+            <li class="Detail-linkItem">
+                <a class="Detail-link" href="{{ pt.tapestry.view.markupUrl(template.getUrlPath(), 'download') }}">Download</a>
             </li>
         </ul>
 
     </div>
 
-    <div class="MarkupDetail-section">
+    <div class="Detail-section">
 
-        <h2 class="MarkupDetail-sectionHeader">Preview</h2>
+        <h2 class="Detail-sectionHeader">Preview</h2>
 
         <iframe src="{{ pt.tapestry.view.markupUrl(template.getUrlPath(), 'preview') }}" frameborder="0"></iframe>
 
@@ -44,9 +44,9 @@
         
     </div>
 
-    <div class="MarkupDetail-section">
+    <div class="Detail-section">
 
-        <h2 class="MarkupDetail-sectionHeader">HTML</h2>
+        <h2 class="Detail-sectionHeader">HTML</h2>
         {% include '@tapestry/partials/highlight.twig' with {
             'content': mergedContent,
             'numbers': false,

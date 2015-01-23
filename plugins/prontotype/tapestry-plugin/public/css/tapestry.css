@@ -660,6 +660,19 @@ iframe {
   bottom: 0;
 }
 
+.Detail-links {
+  list-style: none;
+  font-size: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.Detail-linkItem {
+  font-size: 15px;
+  display: inline-block;
+  margin-right: 10px;
+}
+
 pre[class*="language-"] {
   margin: 0;
 }
@@ -679,24 +692,11 @@ pre[class*="language-"] {
   background: #fff;
   position: absolute;
   top: 0;
-  left: 280px;
+  left: 300px;
   right: 0;
   bottom: 0;
   overflow: auto;
   padding: 20px 20px 50px 20px;
-}
-
-.MarkupDetail-links {
-  list-style: none;
-  font-size: 0;
-  margin: 0;
-  padding: 0;
-}
-
-.MarkupDetail-linkItem {
-  font-size: 15px;
-  display: inline-block;
-  margin-right: 10px;
 }
 
 .SiteHeader {
@@ -732,6 +732,9 @@ pre[class*="language-"] {
   list-style: none;
   font-size: 14px;
 }
+.SiteHeader-nav li + li {
+  margin-left: 16px;
+}
 .SiteHeader-nav a {
   display: inline-block;
 }
@@ -742,16 +745,14 @@ pre[class*="language-"] {
   top: 0;
   left: 0;
   bottom: 0;
-  width: 280px;
+  width: 300px;
   overflow: auto;
   padding: 20px 20px 20px 20px;
   border-right: 1px solid #ddd;
 }
 
 .Sidebar-section {
-  border-bottom: 1px solid #ddd;
-  padding-bottom: 10px;
-  margin-bottom: 15px;
+  padding-bottom: 15px;
 }
 .Sidebar-section:last-child {
   border-bottom: 0;
@@ -761,6 +762,8 @@ pre[class*="language-"] {
   font-size: 16px;
   font-weight: bold;
   margin: 0 0 15px 0;
+  padding: 5px;
+  background-color: #eee;
 }
 
 .TreeNav ul {
@@ -769,34 +772,32 @@ pre[class*="language-"] {
   padding: 0;
 }
 .TreeNav li ul {
-  margin-left: 16px;
-}
-.TreeNav ul ul {
-  margin-bottom: 5px;
+  margin-left: 12px;
 }
 
 .TreeNav-title {
-  display: inline-block;
-  padding: 3px 0;
+  display: block;
+  padding: 4px 0;
+  overflow: hidden;
+  font-size: 15px;
+  white-space: nowrap;
+  word-wrap: normal;
+  overflow-wrap: normal;
+  text-overflow: ellipsis;
 }
 
 .TreeNav-directoryTitle {
-  color: #444;
+  color: #666;
 }
 .TreeNav-directoryTitle:before {
   font-family: FontAwesome;
   content: "\f0d7";
   font-size: 16px;
-  color: #000;
+  color: #333;
   display: inline-block;
   margin-right: 6px;
 }
 
-.TreeNav-linkTitle:before {
-  content: "•";
-  font-size: 16px;
-  color: #999;
-  display: inline-block;
-  margin-right: 7px;
-  margin-left: 2px;
+.TreeNav-linkTitle {
+  padding-left: 4px;
 }

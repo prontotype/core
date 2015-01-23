@@ -18,13 +18,17 @@ class ViewHelper {
         return $url;
     }
 
-    public function generateUrl($type, $item, $view = null)
+    public function generateUrl($type, $item, $opt = null, $opt2 = null)
     {
         if ($type == 'markup') {
-            return $this->markupUrl($item->getUrlPath(), $view);
+            return $this->markupUrl($item->getUrlPath(), $opt);
         } elseif ($type == 'docs') {
             return $this->docsUrl($item->getUrlPath());
-        } 
+        } elseif ($type == 'resources') {
+            return $this->resourcesUrl($item->getRelativePathname(), $opt->getKey(), $opt2);
+        } else {
+            return '#';
+        }
     }
 
     public function markupUrl($path, $view = null)
@@ -35,6 +39,11 @@ class ViewHelper {
     public function docsUrl($path)
     {
         return $this->url('docs', $path);
+    }
+
+    public function resourcesUrl($path, $groupPath, $view = null)
+    {
+        return $this->url('resources', make_path($groupPath, $path), $view);
     }
 
 }

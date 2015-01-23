@@ -1,0 +1,13 @@
+{% extends '@tapestry/layouts/blank.twig' %}
+
+{% set htmlModifier = 'highlight' %}
+
+{% block main %}
+{% include '@tapestry/partials/highlight.twig' with {
+    'content': resource.getBody(),
+    'numbers': true,
+    'lines': pt.request.query.get('lines'),
+    'fullheight': true,
+    'language': resource.getLang()
+} only %}
+{% endblock %}

@@ -1,38 +1,40 @@
 {% extends '@tapestry/layouts/skeleton.twig' %}
 {% import '@tapestry/partials/macros.twig' as macros %}
 {% import _self as localmacros %}
+{% set resourceGroups = pt.tapestry.resources.getGroups() %}
 
 {% block body %}
 <div class="SiteWrapper">
     <div class="SiteHeader">
         <a class="SiteHeader-title" href="/">{{ pt.tapestry.config.title|default('Frontend Deliverables') }}</a>
         <ul class="SiteHeader-nav">
-            <li><a href="/">Overview</a></li>
+            {% if pt.tapestry.has.markup %}<li><a href="/markup">Markup</a></li>{% endif %}
+            {% if pt.tapestry.has.markup %}<li><a href="/resources">Resources</a></li>{% endif %}
+            {% if pt.tapestry.has.docs %}<li><a href="/docs">Documentation</a></li>{% endif %}
         </ul>
     </div>
     <div class="SiteBody">
         <div class="Sidebar">
             {% block sidebar %}
             
-            {% if pt.tapestry.has.markup %}
+            {% if pt.request.getUrlSegment(0) == 'markup' and pt.tapestry.has.markup %}
             <div class="Sidebar-section">
-                <h2 class="Sidebar-sectionTitle">Markup</h2>
+                {# <h2 class="Sidebar-sectionTitle">Markup</h2> #}
                 <div class="TreeNav">
                     {{ macros.treeNav('/', null, 0, 'markup', pt.tapestry.markup) }}    
                 </div>
             </div>
             {% endif %}
-    
-            {% set resourceGroups = pt.tapestry.resources.getGroups() %}
-            {% if resourceGroups %}
+            
+            {% if pt.request.getUrlSegment(0) == 'resources' and resourceGroups %}
             <div class="Sidebar-section">
-                <h2 class="Sidebar-sectionTitle">Resources</h2>
+                {# <h2 class="Sidebar-sectionTitle">Resources</h2> #}
                 <div class="TreeNav TreeNav--collapsible">
                     <ul class="TreeNav-list TreeNav-level0">
                     {% for group in resourceGroups %}
                         <li class="TreeNav-item TreeNav-directoryItem">
                             <span class="TreeNav-title TreeNav-directoryTitle">{{ group.getTitle() }}</span>
-                            {{ localmacros.resourcesNav(group.getPath(), null, 0) }}
+                            {{ localmacros.resourcesNav(group.getPath(), null, 0, group) }}
                         </li>
                     {% endfor %}
                     </ul>
@@ -40,9 +42,9 @@
             </div>
             {% endif %}
 
-            {% if pt.tapestry.has.docs %}
+            {% if pt.request.getUrlSegment(0) == 'docs' and pt.tapestry.has.docs %}
             <div class="Sidebar-section">
-                <h2 class="Sidebar-sectionTitle">Documentation</h2>
+                {# <h2 class="Sidebar-sectionTitle">Documentation</h2> #}
                 <div class="TreeNav TreeNav--collapsible">
                     {{ macros.treeNav('/', null, 0, 'docs', pt.tapestry.docs) }}
                 </div>
@@ -58,7 +60,7 @@
 </div>
 {% endblock %}
 
-{% macro resourcesNav(path, relPath, depth) %}
+{% macro resourcesNav(path, relPath, depth, group) %}
     {% import _self as localmacros %}
     {% set items = pt.tapestry.resources.getAll(path, false).depth('== ' ~ depth) %}
     {% if relPath %}
@@ -69,9 +71,9 @@
         <li class="TreeNav-item{% if item.isDir() %} TreeNav-directoryItem{% else %} TreeNav-linkItem{% endif %}">
             {% if item.isDir() %}
             <span class="TreeNav-title TreeNav-directoryTitle">{{ item.getBasename() }}</span>
-            {{ localmacros.resourcesNav(path, item.getRelativePathname(), (depth + 1)) }}
+            {{ localmacros.resourcesNav(path, item.getRelativePathname(), (depth + 1), group) }}
             {% else %}
-            <a class="TreeNav-title TreeNav-linkTitle" href="{{ pt.tapestry.view.generateUrl('resources', item) }}">{{ item.getBasename() }}</a>
+            <a class="TreeNav-title TreeNav-linkTitle" href="{{ pt.tapestry.view.generateUrl('resources', item, group) }}">{{ item.getBasename() }}</a> 
             {% endif %}
         </li>
     {% endfor %}

@@ -1,0 +1,46 @@
+{% extends '@tapestry/layouts/sidebar.twig' %}
+
+{% block main %}
+
+<div class="Detail">
+
+    <div class="Detail-header">
+         
+        <h1 class="Detail-title"><span>{{ resource.getRelativePath() }}</span>/<span>{{ resource.getTitle() }}</span></h1>
+        <ul class="Detail-links">
+            {% if not resource.isHighlightable() %}
+            <li class="Detail-linkItem">
+                <a class="Detail-link" href="{{ pt.tapestry.view.generateUrl('resources', resource, group, 'preview') }}">Preview</a>
+            </li> 
+            {% else %}
+            <li class="Detail-linkItem">
+                <a class="Detail-link" href="{{ pt.tapestry.view.generateUrl('resources', resource, group, 'highlight') }}">Highlighted</a>
+            </li>
+            <li class="Detail-linkItem">
+                <a class="Detail-link" href="{{ pt.tapestry.view.generateUrl('resources', resource, group, 'raw') }}">Raw</a>
+            </li>
+            {% endif %}
+            <li class="Detail-linkItem">
+                <a class="Detail-link" href="{{ pt.tapestry.view.generateUrl('resources', resource, group, 'download') }}">Download</a>
+            </li>
+        </ul>
+
+    </div>
+    
+    {% if resource.isHighlightable() %}
+    <div class="Detail-section">
+
+        {% include '@tapestry/partials/highlight.twig' with {
+            'content': resource.getBody(),
+            'numbers': false,
+            'lines': false,
+            'language': resource.getLang()
+        } only %}
+
+    </div>
+    {% else %}
+
+SHOW PREVIEW
+
+    {% endif %}
+{% endblock %}

@@ -29,6 +29,9 @@
         display: inline-block;
         list-style: none;
         font-size: 14px;
+        + li {
+            margin-left: 16px;
+        }
     }
     a {
         display: inline-block;

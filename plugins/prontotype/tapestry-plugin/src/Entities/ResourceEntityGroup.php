@@ -21,9 +21,9 @@ class ResourceEntityGroup {
         return $this->config['directory'];
     }
 
-    // public function getContents()
-    // {
-    //     $paths = $this->repo->getAll($this->config['match']);
-    // }
+    public function getKey()
+    {
+        return $this->key;
+    }
 
 }

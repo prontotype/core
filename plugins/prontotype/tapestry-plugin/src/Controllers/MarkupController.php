@@ -7,6 +7,11 @@ use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 
 class MarkupController extends BaseController
 {    
+    public function index()
+    {
+        return $this->renderTemplate('@tapestry/markup/index.twig');
+    }
+
     public function detail($path, Request $request)
     {
         return $this->getResponse($path, 'detail');
@@ -31,7 +36,12 @@ class MarkupController extends BaseController
 
     public function download($path, Request $request)
     {
-        $response = $this->getResponse($path, 'download');
+        $repo = $this->container->make('tapestry.repo.markup');
+        $entity = $repo->findEntity($path);
+        $response = $this->renderTemplate('@tapestry/markup/download.twig', [
+            "template" => $entity,
+            "modifiers" => $repo->getModifiersOf($entity)
+        ]);
         $response->headers->set('Content-Disposition', $response->headers->makeDisposition(
             ResponseHeaderBag::DISPOSITION_ATTACHMENT,
             $entity->getFilename()

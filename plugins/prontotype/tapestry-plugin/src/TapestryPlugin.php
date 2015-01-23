@@ -69,7 +69,7 @@ class TapestryPlugin extends AbstractPlugin implements PluginInterface
 
             $markupUrl = '/' . $config->get('tapestry.markup.url');
         
-            $handler->get($markupUrl, 'Prontotype\Plugins\Tapestry\Controllers\TapestryController::markupIndex')
+            $handler->get($markupUrl, 'Prontotype\Plugins\Tapestry\Controllers\MarkupController::index')
                 ->name('tapestry.markup.index');
 
             $handler->get($markupUrl . '/{path}.html/preview', 'Prontotype\Plugins\Tapestry\Controllers\MarkupController::preview')
@@ -97,10 +97,26 @@ class TapestryPlugin extends AbstractPlugin implements PluginInterface
                 
         $assetsUrl = '/' . $config->get('tapestry.resources.url');
 
-        $handler->get($assetsUrl, 'Prontotype\Plugins\Tapestry\Controllers\TapestryController::resourcesIndex')
+        $handler->get($assetsUrl, 'Prontotype\Plugins\Tapestry\Controllers\ResourcesController::index')
                 ->name('tapestry.resources.index');
+
+        $handler->get($assetsUrl . '/{group}/{path}/preview', 'Prontotype\Plugins\Tapestry\Controllers\ResourcesController::preview')
+                ->name('tapestry.resource.preview')
+                ->assert('path', '.+');
+
+        $handler->get($assetsUrl . '/{group}/{path}/raw', 'Prontotype\Plugins\Tapestry\Controllers\ResourcesController::raw')
+            ->name('tapestry.resource.raw')
+            ->assert('path', '.+');
+
+        $handler->get($assetsUrl . '/{group}/{path}/download', 'Prontotype\Plugins\Tapestry\Controllers\ResourcesController::download')
+            ->name('tapestry.resource.download')
+            ->assert('path', '.+');
+
+        $handler->get($assetsUrl . '/{group}/{path}/highlight', 'Prontotype\Plugins\Tapestry\Controllers\ResourcesController::highlight')
+            ->name('tapestry.resource.highlight')
+            ->assert('path', '.+');
         
-        $handler->get($assetsUrl . '/{path}', 'Prontotype\Plugins\Tapestry\Controllers\ResourcesController::detail')
+        $handler->get($assetsUrl . '/{group}/{path}', 'Prontotype\Plugins\Tapestry\Controllers\ResourcesController::detail')
             ->name('tapestry.resource.detail')
             ->assert('path', '.+');   
 

@@ -2,6 +2,6 @@
 
 {% block main %}
 
-{% include '@tapestry/partials/text.twig', {content: page.getBody()|markdown} %}
+{% include '@tapestry/partials/text.twig' with {content: page.getBody()|markdown} %}
 
 {% endblock %}

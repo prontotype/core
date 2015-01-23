@@ -9,4 +9,8 @@ class ResourceEntity extends AbstractEntity {
         return $this->getBasename();
     }
 
+    public function getLang()
+    {
+        return $this->getExtension();
+    }
 }

@@ -7,6 +7,10 @@ tapestry:
   resources:
     url: resources
     groups:
+      images:
+        title: 'Images'
+        directory: /assets/img
+        filter: 
       assets:
         title: 'SCSS'
         directory: /assets/css
