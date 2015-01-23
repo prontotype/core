@@ -640,7 +640,7 @@ a:hover {
 
 iframe {
   width: 100%;
-  height: 1px;
+  height: 100px;
 }
 
 .SiteWrapper {
@@ -660,17 +660,69 @@ iframe {
   bottom: 0;
 }
 
-.Detail-links {
-  list-style: none;
-  font-size: 0;
-  margin: 0;
+.Detail-header {
+  overflow: hidden;
   padding: 0;
 }
 
+.Detail-title {
+  font-size: 20px;
+  margin: 0;
+  line-height: 1.3;
+}
+.Detail-title span {
+  color: #AAA;
+  font-weight: normal;
+}
+.Detail-title span:last-child {
+  color: #333;
+  font-weight: bold;
+}
+
+.Detail-links {
+  list-style: none;
+  font-size: 0;
+  margin: 10px 0 0 0;
+  padding: 10px 0;
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+}
+
 .Detail-linkItem {
-  font-size: 15px;
+  font-size: 13px;
   display: inline-block;
+}
+.Detail-linkItem + .Detail-linkItem {
+  margin-left: 7px;
+}
+.Detail-linkItem + .Detail-linkItem:before {
+  content: "•";
+  font-size: 13px;
+  color: #AAA;
+  display: inline-block;
+  margin-right: 5px;
+}
+
+.Detail-linkItemText {
+  font-size: 13px;
+  display: inline-block;
+  color: #AAA;
   margin-right: 10px;
+}
+
+.Detail-section {
+  padding: 10px 0;
+}
+.Detail-section + .Detail-section {
+  margin-top: 20px;
+}
+
+.Detail-sectionHeader {
+  font-size: 12px;
+  text-transform: uppercase;
+  color: #AAA;
+  letter-spacing: 1px;
+  font-weight: normal;
 }
 
 pre[class*="language-"] {
@@ -682,6 +734,10 @@ pre[class*="language-"] {
   font-size: 16px;
   line-height: 1.5;
   font-family: 'Inconsolata', Consolas, Monaco, 'Andale Mono', monospace;
+}
+
+pre[class*="language-"] {
+  padding: 10px 1em;
 }
 
 .Html--highlight {

@@ -6,8 +6,12 @@
 
     <div class="Detail-header">
         
-        <h1 class="Detail-title">{{ template.getTitle() }}</h1>
+        <h1 class="Detail-title"><span>{{ template.getTitle() }}</span></h1>
+        
         <ul class="Detail-links">
+            <li class="Detail-linkItemText">
+                <span>Open:</span>
+            </li>
             <li class="Detail-linkItem">
                 <a class="Detail-link" href="{{ pt.tapestry.view.markupUrl(template.getUrlPath(), 'preview') }}">Preview</a>
             </li>
@@ -17,12 +21,14 @@
             <li class="Detail-linkItem">
                 <a class="Detail-link" href="{{ pt.tapestry.view.markupUrl(template.getUrlPath(), 'raw') }}">Raw</a>
             </li>
-            <li class="Detail-linkItem">
+            {# <li class="Detail-linkItem">
                 <a class="Detail-link" href="{{ pt.tapestry.view.markupUrl(template.getUrlPath(), 'download') }}">Download</a>
-            </li>
+            </li> #}
         </ul>
 
     </div>
+
+
 
     <div class="Detail-section">
 
@@ -46,26 +52,33 @@
 
     <div class="Detail-section">
 
-        <h2 class="Detail-sectionHeader">HTML</h2>
+        <h2 class="Detail-sectionHeader">Markup</h2>
         {% include '@tapestry/partials/highlight.twig' with {
             'content': mergedContent,
             'numbers': false,
             'lines': false,
         } only %}
 
-        {% set mergedNotes %}
-        {{ template.getNotes() }}
-        {% for variant in modifiers %}
-        {{ variant.getNotes() }}
-        {% endfor %}
-        {% endset %}
-
-        {% if mergedNotes|trim %}
-        <h2>Notes</h2>
-        {{ mergedNotes|markdown }}
-    {% endif %}
-
     </div>
+
+    {% set mergedNotes %}
+    {{ template.getNotes() }}
+    {% for variant in modifiers %}
+    {{ variant.getNotes() }}
+    {% endfor %}
+    {% endset %}
+    
+    {% if mergedNotes|trim %}
+    <div class="Detail-section">
+    
+        <h2 class="Detail-sectionHeader">Notes</h2>
+
+        {% include '@tapestry/partials/text.twig' with {
+            'content': mergedNotes|trim|markdown
+        } only %}
+    
+    </div>
+    {% endif %}
 
 </div>
 

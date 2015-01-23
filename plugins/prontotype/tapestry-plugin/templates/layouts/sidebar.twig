@@ -7,28 +7,26 @@
 <div class="SiteWrapper">
     <div class="SiteHeader">
         <a class="SiteHeader-title" href="/">{{ pt.tapestry.config.title|default('Frontend Deliverables') }}</a>
-        <ul class="SiteHeader-nav">
-            {% if pt.tapestry.has.markup %}<li><a href="/markup">Markup</a></li>{% endif %}
-            {% if pt.tapestry.has.markup %}<li><a href="/resources">Resources</a></li>{% endif %}
-            {% if pt.tapestry.has.docs %}<li><a href="/docs">Documentation</a></li>{% endif %}
-        </ul>
+        {# <ul class="SiteHeader-nav">
+            
+        </ul> #}
     </div>
     <div class="SiteBody">
         <div class="Sidebar">
             {% block sidebar %}
             
-            {% if pt.request.getUrlSegment(0) == 'markup' and pt.tapestry.has.markup %}
+            {% if pt.tapestry.has.markup %}
             <div class="Sidebar-section">
-                {# <h2 class="Sidebar-sectionTitle">Markup</h2> #}
+                <h2 class="Sidebar-sectionTitle">Markup</h2>
                 <div class="TreeNav">
                     {{ macros.treeNav('/', null, 0, 'markup', pt.tapestry.markup) }}    
                 </div>
             </div>
             {% endif %}
             
-            {% if pt.request.getUrlSegment(0) == 'resources' and resourceGroups %}
+            {% if resourceGroups %}
             <div class="Sidebar-section">
-                {# <h2 class="Sidebar-sectionTitle">Resources</h2> #}
+                <h2 class="Sidebar-sectionTitle">Resources</h2>
                 <div class="TreeNav TreeNav--collapsible">
                     <ul class="TreeNav-list TreeNav-level0">
                     {% for group in resourceGroups %}
@@ -42,9 +40,9 @@
             </div>
             {% endif %}
 
-            {% if pt.request.getUrlSegment(0) == 'docs' and pt.tapestry.has.docs %}
+            {% if pt.tapestry.has.docs %}
             <div class="Sidebar-section">
-                {# <h2 class="Sidebar-sectionTitle">Documentation</h2> #}
+                <h2 class="Sidebar-sectionTitle">Documentation</h2>
                 <div class="TreeNav TreeNav--collapsible">
                     {{ macros.treeNav('/', null, 0, 'docs', pt.tapestry.docs) }}
                 </div>

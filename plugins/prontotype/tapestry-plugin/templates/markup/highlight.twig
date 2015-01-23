@@ -4,7 +4,8 @@
 
 {% block main %}
 {% set mergedContent %}
-<!-- {{ template.getTitle() }} -->
+{% if modifiers|length %}<!-- {{ template.getTitle() }} -->
+{% endif %}
 {{ template.render() }}
 
 {% for variant in modifiers %}

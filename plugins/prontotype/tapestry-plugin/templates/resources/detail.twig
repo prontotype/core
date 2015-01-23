@@ -6,7 +6,7 @@
 
     <div class="Detail-header">
          
-        <h1 class="Detail-title"><span>{{ resource.getRelativePath() }}</span>/<span>{{ resource.getTitle() }}</span></h1>
+        <h1 class="Detail-title"><span>{{ resource.getRelativePath() }}/</span><span>{{ resource.getTitle() }}</span></h1>
         <ul class="Detail-links">
             {% if not resource.isHighlightable() %}
             <li class="Detail-linkItem">
@@ -39,8 +39,10 @@
 
     </div>
     {% else %}
-
-SHOW PREVIEW
-
+    <div class="Detail-section">
+        
+        <iframe src="{{ pt.tapestry.view.generateUrl('resources', resource, group, 'preview') }}" frameborder="0"></iframe>
+        
+    </div>
     {% endif %}
 {% endblock %}

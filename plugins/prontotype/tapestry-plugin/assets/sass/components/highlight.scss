@@ -12,3 +12,7 @@ pre[class*="language-"] {
     line-height: 1.5;
     font-family: 'Inconsolata', Consolas, Monaco, 'Andale Mono', monospace;
 }
+
+pre[class*="language-"] {
+    padding: 10px 1em;
+}

@@ -2,14 +2,61 @@
     
 }
 
+.Detail-header {
+    overflow: hidden;
+    padding: 0;
+}
+.Detail-title {
+    font-size: 20px;
+    margin: 0;
+    line-height: 1.3;
+    span {
+        color: #AAA;
+        font-weight: normal;
+    }
+    span:last-child {
+        color: #333;
+        font-weight: bold;
+    }
+}
 .Detail-links {
     list-style: none;
     font-size: 0;
-    margin: 0;
-    padding: 0;
+    margin: 10px 0 0 0;
+    padding: 10px 0;
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
 }
 .Detail-linkItem {
-    font-size: 15px;
+    font-size: 13px;
     display: inline-block;
+    + .Detail-linkItem {
+        margin-left: 7px;
+        &:before {
+            content: "•";
+            font-size: 13px;
+            color: #AAA;
+            display: inline-block;
+            margin-right: 5px;
+        }
+    }
+}
+.Detail-linkItemText {
+    font-size: 13px;
+    display: inline-block;
+    color: #AAA;
     margin-right: 10px;
+}
+.Detail-section {
+    padding: 10px 0;
+    + .Detail-section {
+        margin-top: 20px;
+    }
+}
+.Detail-sectionHeader {
+    font-size: 12px;
+    text-transform: uppercase;
+    color: #AAA;
+    letter-spacing: 1px;
+    font-weight: normal;
 }
