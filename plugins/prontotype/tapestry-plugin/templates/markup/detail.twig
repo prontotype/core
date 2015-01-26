@@ -9,9 +9,6 @@
         <h1 class="Detail-title"><span>{{ template.getTitle() }}</span></h1>
         
         <ul class="Detail-links">
-            <li class="Detail-linkItemText">
-                <span>Open:</span>
-            </li>
             <li class="Detail-linkItem">
                 <a class="Detail-link" href="{{ pt.tapestry.view.markupUrl(template.getUrlPath(), 'preview') }}">Preview</a>
             </li>
@@ -21,9 +18,9 @@
             <li class="Detail-linkItem">
                 <a class="Detail-link" href="{{ pt.tapestry.view.markupUrl(template.getUrlPath(), 'raw') }}">Raw</a>
             </li>
-            {# <li class="Detail-linkItem">
+            <li class="Detail-linkItem">
                 <a class="Detail-link" href="{{ pt.tapestry.view.markupUrl(template.getUrlPath(), 'download') }}">Download</a>
-            </li> #}
+            </li>
         </ul>
 
     </div>
@@ -32,8 +29,8 @@
 
     <div class="Detail-section">
 
-        <h2 class="Detail-sectionHeader">Preview</h2>
-
+        <h2 class="Detail-sectionHeader"><span>Preview</span></h2>
+        
         <iframe src="{{ pt.tapestry.view.markupUrl(template.getUrlPath(), 'preview') }}" frameborder="0"></iframe>
 
 {% set mergedContent %}
@@ -51,14 +48,12 @@
     </div>
 
     <div class="Detail-section">
-
-        <h2 class="Detail-sectionHeader">Markup</h2>
+        <h2 class="Detail-sectionHeader"><span>Markup</span></h2>
         {% include '@tapestry/partials/highlight.twig' with {
             'content': mergedContent,
             'numbers': false,
             'lines': false,
         } only %}
-
     </div>
 
     {% set mergedNotes %}
@@ -70,13 +65,10 @@
     
     {% if mergedNotes|trim %}
     <div class="Detail-section">
-    
-        <h2 class="Detail-sectionHeader">Notes</h2>
-
+        <h2 class="Detail-sectionHeader"><span>Notes</span></h2>
         {% include '@tapestry/partials/text.twig' with {
             'content': mergedNotes|trim|markdown
         } only %}
-    
     </div>
     {% endif %}
 

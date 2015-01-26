@@ -1,1 +1,1 @@
-{{ resource.getBody()|raw }}
+{% if resource.isPreviewable() %}{% include '@tapestry/resources/preview/' ~ resource.previewType() ~ '.twig' %}{% endif %}

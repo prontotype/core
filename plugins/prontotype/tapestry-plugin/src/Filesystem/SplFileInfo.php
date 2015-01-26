@@ -4,12 +4,34 @@ use Prontotype\Filesystem\SplFileInfo as PTSplFileInfo;
 
 class SplFileInfo extends PTSplFileInfo
 {
-    protected $highlightable = ['js', 'json', 'css', 'scss', 'coffee', 'less', 'md', 'markdown'];
+    protected $previewTypes = [
+        'image' => ['png', 'jpg', 'jpeg', 'gif', 'svg'],
+        'video' => ['mpeg'],
+        'code' => ['js', 'json', 'css', 'scss', 'coffee', 'less', 'md', 'markdown']
+    ];
 
-    public function isHighlightable()
+    public function getPreviewableExtensions()
     {
-        return in_array(strtolower($this->getExtension()), $this->highlightable);
+        $exts = [];
+        foreach($this->previewTypes as $type) {
+            $exts = array_merge($exts, $type);
+        }
+        return $exts;
     }
 
+    public function isPreviewable()
+    {
+        return in_array(strtolower($this->getExtension()), $this->getPreviewableExtensions());
+    }
+
+    public function previewType()
+    {
+        foreach($this->previewTypes as $type => $exts) {
+            if ( in_array(strtolower($this->getExtension()), $exts) ) {
+                return $type;
+            }
+        }
+        return null;
+    }
 
 }

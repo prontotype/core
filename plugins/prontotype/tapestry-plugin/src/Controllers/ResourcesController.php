@@ -23,23 +23,23 @@ class ResourcesController extends BaseController
         $group = $repo->getGroup($group);
         $entity = $repo->findEntity($group, $path);
         $response = $this->renderTemplate('@tapestry/resources/preview.twig', [
-            "resource" => $entity
-        ], [
-            'Content-Type' => $entity->getMimeType()
+            "resource" => $entity,
+            "group" => $group
         ]);
         return $response;
     }
 
-    public function highlight($group, $path, Request $request)
-    {
-        return $this->getResponse($group, $path, 'highlight');
-    }
-
     public function raw($group, $path, Request $request)
     {
-        return $this->getResponse($group, $path, 'raw', [
-            'Content-Type' => 'text/plain'
+        $repo = $this->container->make('tapestry.repo.resources');
+        $group = $repo->getGroup($group);
+        $entity = $repo->findEntity($group, $path);
+        $response = $this->renderTemplate('@tapestry/resources/raw.twig', [
+            "resource" => $entity,
+        ],[
+            'Content-Type' => $entity->getMimeType()
         ]);
+        return $response;
     }
 
     public function download($group, $path, Request $request)
@@ -48,7 +48,7 @@ class ResourcesController extends BaseController
         $group = $repo->getGroup($group);
         $entity = $repo->findEntity($group, $path);
         $response = $this->renderTemplate('@tapestry/resources/download.twig', [
-            "resource" => $entity
+            "resource" => $entity,
         ]);
         $response->headers->set('Content-Disposition', $response->headers->makeDisposition(
             ResponseHeaderBag::DISPOSITION_ATTACHMENT,

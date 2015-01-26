@@ -5,21 +5,17 @@
 <div class="Detail">
 
     <div class="Detail-header">
-         
-        <h1 class="Detail-title"><span>{{ resource.getRelativePath() }}/</span><span>{{ resource.getTitle() }}</span></h1>
+
+        <h1 class="Detail-title">{% if resource.getRelativePath() != '' %}<span>{{ resource.getRelativePath() }}/</span>{% endif %}<span>{{ resource.getTitle() }}</span></h1>
         <ul class="Detail-links">
-            {% if not resource.isHighlightable() %}
+            {% if resource.isPreviewable() %}
             <li class="Detail-linkItem">
                 <a class="Detail-link" href="{{ pt.tapestry.view.generateUrl('resources', resource, group, 'preview') }}">Preview</a>
-            </li> 
-            {% else %}
-            <li class="Detail-linkItem">
-                <a class="Detail-link" href="{{ pt.tapestry.view.generateUrl('resources', resource, group, 'highlight') }}">Highlighted</a>
             </li>
+            {% endif %}
             <li class="Detail-linkItem">
                 <a class="Detail-link" href="{{ pt.tapestry.view.generateUrl('resources', resource, group, 'raw') }}">Raw</a>
             </li>
-            {% endif %}
             <li class="Detail-linkItem">
                 <a class="Detail-link" href="{{ pt.tapestry.view.generateUrl('resources', resource, group, 'download') }}">Download</a>
             </li>
@@ -27,22 +23,24 @@
 
     </div>
     
-    {% if resource.isHighlightable() %}
+    
     <div class="Detail-section">
-
-        {% include '@tapestry/partials/highlight.twig' with {
-            'content': resource.getBody(),
-            'numbers': false,
-            'lines': false,
-            'language': resource.getLang()
-        } only %}
-
+        <h2 class="Detail-sectionHeader"><span>Preview</span></h2>
+        {% if resource.isPreviewable() %}
+            {% if resource.previewType() == 'code' %}
+            {% include '@tapestry/partials/highlight.twig' with {
+                'content': resource.getBody(),
+                'numbers': false,
+                'lines': false,
+                'language': resource.getLang()
+            } only %}
+            {% else %}
+            <iframe src="{{ pt.tapestry.view.generateUrl('resources', resource, group, 'preview') }}" frameborder="0"></iframe>
+            {% endif %}
+        {% else %}
+        <p class="Detail-noPreview">There is no preview available for this file type.</p>
+        {% endif %}
     </div>
-    {% else %}
-    <div class="Detail-section">
-        
-        <iframe src="{{ pt.tapestry.view.generateUrl('resources', resource, group, 'preview') }}" frameborder="0"></iframe>
-        
-    </div>
-    {% endif %}
+  
+    
 {% endblock %}

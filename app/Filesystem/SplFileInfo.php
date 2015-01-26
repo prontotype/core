@@ -1,10 +1,15 @@
 <?php namespace Prontotype\Filesystem;
 
 use Amu\Ffs\SplFileInfo as AmuFileInfo;
+use Dflydev\ApacheMimeTypes\PhpRepository as MimeRepo;
 
 class SplFileInfo extends AmuFileInfo
 {
     protected $parse = ['html','twig','md','markdown'];
+
+    protected $mimeType = null;
+
+    protected $mimeChecked = false;
 
     public function getMetadata()
     {
@@ -70,4 +75,12 @@ class SplFileInfo extends AmuFileInfo
         return preg_replace('/' . '.' . $this->getExtension() . '$/', '', $this->getRelativePathname());
     }
 
+    public function getMimeType()
+    {
+        if (! $this->mimeChecked) {
+            $mimes = new MimeRepo();
+            $this->mimeType = $mimes->findType($this->getExtension());
+        }
+        return $this->mimeType;
+    }
 }
